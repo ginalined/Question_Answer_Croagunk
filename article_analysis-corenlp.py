@@ -1,4 +1,3 @@
-from mimetypes import init
 from stanfordcorenlp import StanfordCoreNLP
 import sys
 import nltk
@@ -14,7 +13,12 @@ class ArticleAnalysis:
         self.tokenizes = []
         for sentence in self.sentences:
             self.tokenizes.append(self.corenlp.word_tokenize(sentence))
-        return self.tokenizes
+    
+    def pos_tag(self):
+        self.poss = []
+        for sentence in self.sentences:
+            self.poss.append(self.corenlp.pos_tag(sentence))
+        return self.poss
     
     def ner(self):
         self.ners = []
@@ -25,17 +29,16 @@ class ArticleAnalysis:
     def sentence_segmentation(self):
         self.sentences = nltk.sent_tokenize(self.article)
         return self.sentences
-    
-    def process(self):
-        self.sentence_segmentation()
-        self.ner()
-        self.corenlp.close()
-        return self.ners
 
 
 if __name__ == '__main__':
     article = sys.argv[1]
     aa = ArticleAnalysis(article)
-    aa.process()
-    print("Sentence Segmentation: ", aa.sentences)
-    print("NER: ", aa.ners)
+    aa.sentence_segmentation()
+    print("1. Sentence Segmentation: ", aa.sentences)
+    aa.ner()
+    print("2. NER: ", aa.ners)
+    aa.pos_tag()
+    print("3. POS: ", aa.poss)
+
+    aa.corenlp.close()

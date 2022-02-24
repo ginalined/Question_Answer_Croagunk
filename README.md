@@ -1,16 +1,27 @@
 # Question_Answer_Croagunk
 
 ## Environment Setup
-Download nltk:
-`pip3 install nltk`    
-Download stanfordcorenlp:
-`pip3 install stanfordcorenlp`    
-Run stanfordcorenlp server:
-`./runserver.sh`      
-- citation: https://github.com/Lynten/stanford-corenlp
+```
+pip3 install nltk
+pip3 install stanfordcorenlp   
+./runserver.sh
+```
+Citation: https://github.com/Lynten/stanford-corenlp
 
-### stanfordcorenlp usage example
+### Stanfordcorenlp usage example
 `python3 corenlp.py`
 
 ## Article Analysis
-`python3 article_analysis.py <article>`
+- Using stanfordcorenlp:
+```
+python3 article_analysis-corenlp.py <article>
+```
+- Using stanza: 
+```
+pip3 install stanza
+python3 article_analysis-stanza.py <article>
+```
+- Using nltk:
+```
+python3 article_analysis-nltk.py <article>
+```
