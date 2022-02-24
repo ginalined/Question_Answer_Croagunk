@@ -1,8 +1,8 @@
 if [ ! -d "stanford-corenlp-4.4.0" ]
 then
-    curl -O -L http://nlp.stanford.edu/software/stanford-corenlp-latest.zip
-    unzip stanford-corenlp-latest.zip
-    rm stanford-corenlp-latest.zip
+    curl -O -L http://nlp.stanford.edu/software/stanford-corenlp-4.4.0.zip
+    unzip stanford-corenlp-4.4.0.zip
+    rm stanford-corenlp-4.4.0.zip
 fi
 
 cd stanford-corenlp-4.4.0
