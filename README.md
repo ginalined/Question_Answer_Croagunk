@@ -1,8 +1,11 @@
 # Question_Answer_Croagunk
 
 ## Environment Setup
+Download nltk:
+`pip3 install nltk`    
+Download stanfordcorenlp:
 `pip3 install stanfordcorenlp`    
-`pip3 install nltk`
+Run stanfordcorenlp server:
 `./runserver.sh`      
 - citation: https://github.com/Lynten/stanford-corenlp
 
@@ -11,5 +14,3 @@
 
 ## Article Analysis
 `python3 article_analysis.py <article>`
-Example:
-`python3 article_analysis.py articles/set1/a1.txt`
