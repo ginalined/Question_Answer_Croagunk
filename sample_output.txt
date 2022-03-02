@@ -1,0 +1,39 @@
+Harry Potter and the Prisoner of Azkaban is a 2004 fantasy film directed by Alfonso Cuarón and distributed by Warner Bros. Pictures. It is based on the novel of the same name by J. K. Rowling. The film, which is the third instalment in the Harry Potter film series, was written by Steve Kloves and produced by Chris Columbus (director of the first two instalments), David Heyman, and Mark Radcliffe. 
+    
+
+Sentence Segmentation: ['Harry Potter and the Prisoner of Azkaban is a 2004 fantasy film directed by Alfonso Cuarón and distributed by Warner Bros. Pictures.', 'It is based on the novel of the same name by J. K. Rowling.', 'The film, which is the third instalment in the Harry Potter film series, was written by Steve Kloves and produced by Chris Columbus (director of the first two instalments), David Heyman, and Mark Radcliffe.']
+Number of sentence is:  3 
+
+Tokenize:  ['Harry', 'Potter', 'and', 'the', 'Prisoner', 'of', 'Azkaban', 'is', 'a', '2004', 'fantasy', 'film', 'directed', 'by', 'Alfonso', 'Cuarón', 'and', 'distributed', 'by', 'Warner', 'Bros', '.', 'Pictures', '.', 'It', 'is', 'based', 'on', 'the', 'novel', 'of', 'the', 'same', 'name', 'by', 'J.', 'K.', 'Rowling', '.', 'The', 'film', ',', 'which', 'is', 'the', 'third', 'instalment', 'in', 'the', 'Harry', 'Potter', 'film', 'series', ',', 'was', 'written', 'by', 'Steve', 'Kloves', 'and', 'produced', 'by', 'Chris', 'Columbus', '(', 'director', 'of', 'the', 'first', 'two', 'instalments', ')', ',', 'David', 'Heyman', ',', 'and', 'Mark', 'Radcliffe', '.']
+Number of token is: 80
+
+Part of Speech: [('Harry', 'NNP'), ('Potter', 'NNP'), ('and', 'CC'), ('the', 'DT'), ('Prisoner', 'NN'), ('of', 'IN'), ('Azkaban', 'NNP'), ('is', 'VBZ'), ('a', 'DT'), ('2004', 'CD'), ('fantasy', 'NN'), ('film', 'NN'), ('directed', 'VBN'), ('by', 'IN'), ('Alfonso', 'NNP'), ('Cuarón', 'NNP'), ('and', 'CC'), ('distributed', 'VBN'), ('by', 'IN'), ('Warner', 'NNP'), ('Bros', 'NNP'), ('.', '.'), ('Pictures', 'NNS'), ('.', '.'), ('It', 'PRP'), ('is', 'VBZ'), ('based', 'VBN'), ('on', 'IN'), ('the', 'DT'), ('novel', 'NN'), ('of', 'IN'), ('the', 'DT'), ('same', 'JJ'), ('name', 'NN'), ('by', 'IN'), ('J.', 'NNP'), ('K.', 'NNP'), ('Rowling', 'NNP'), ('.', '.'), ('The', 'DT'), ('film', 'NN'), (',', ','), ('which', 'WDT'), ('is', 'VBZ'), ('the', 'DT'), ('third', 'JJ'), ('instalment', 'NN'), ('in', 'IN'), ('the', 'DT'), ('Harry', 'NNP'), ('Potter', 'NNP'), ('film', 'NN'), ('series', 'NN'), (',', ','), ('was', 'VBD'), ('written', 'VBN'), ('by', 'IN'), ('Steve', 'NNP'), ('Kloves', 'NNP'), ('and', 'CC'), ('produced', 'VBN'), ('by', 'IN'), ('Chris', 'NNP'), ('Columbus', 'NNP'), ('(', '-LRB-'), ('director', 'NN'), ('of', 'IN'), ('the', 'DT'), ('first', 'JJ'), ('two', 'CD'), ('instalments', 'NNS'), (')', '-RRB-'), (',', ','), ('David', 'NNP'), ('Heyman', 'NNP'), (',', ','), ('and', 'CC'), ('Mark', 'NNP'), ('Radcliffe', 'NNP'), ('.', '.')] 
+
+Named Entities: [('Harry', 'PERSON'), ('Potter', 'PERSON'), ('and', 'O'), ('the', 'O'), ('Prisoner', 'MISC'), ('of', 'MISC'), ('Azkaban', 'MISC'), ('is', 'O'), ('a', 'O'), ('2004', 'DATE'), ('fantasy', 'O'), ('film', 'O'), ('directed', 'O'), ('by', 'O'), ('Alfonso', 'PERSON'), ('Cuarón', 'PERSON'), ('and', 'O'), ('distributed', 'O'), ('by', 'O'), ('Warner', 'ORGANIZATION'), ('Bros', 'ORGANIZATION'), ('.', 'O'), ('Pictures', 'O'), ('.', 'O'), ('It', 'O'), ('is', 'O'), ('based', 'O'), ('on', 'O'), ('the', 'O'), ('novel', 'O'), ('of', 'O'), ('the', 'O'), ('same', 'O'), ('name', 'O'), ('by', 'O'), ('J.', 'PERSON'), ('K.', 'PERSON'), ('Rowling', 'PERSON'), ('.', 'O'), ('The', 'O'), ('film', 'O'), (',', 'O'), ('which', 'O'), ('is', 'O'), ('the', 'O'), ('third', 'ORDINAL'), ('instalment', 'O'), ('in', 'O'), ('the', 'O'), ('Harry', 'PERSON'), ('Potter', 'PERSON'), ('film', 'O'), ('series', 'O'), (',', 'O'), ('was', 'O'), ('written', 'O'), ('by', 'O'), ('Steve', 'PERSON'), ('Kloves', 'PERSON'), ('and', 'O'), ('produced', 'O'), ('by', 'O'), ('Chris', 'PERSON'), ('Columbus', 'PERSON'), ('(', 'O'), ('director', 'TITLE'), ('of', 'O'), ('the', 'O'), ('first', 'ORDINAL'), ('two', 'NUMBER'), ('instalments', 'O'), (')', 'O'), (',', 'O'), ('David', 'PERSON'), ('Heyman', 'PERSON'), (',', 'O'), ('and', 'O'), ('Mark', 'PERSON'), ('Radcliffe', 'PERSON'), ('.', 'O')]
+Name Count is: 15
+Names are: ['Harry Potter', 'Prisoner of Azkaban', '2004', 'Alfonso Cuarón', 'Warner Bros', 'J. K. Rowling', 'third', 'Harry Potter', 'Steve Kloves', 'Chris Columbus', 'director', 'first', 'two', 'David Heyman', 'Mark Radcliffe']
+
+Constituency Parsing:  (ROOT
+  (S
+    (NP
+      (NP (NNP Harry) (NNP Potter))
+      (CC and)
+      (NP
+        (NP (DT the) (NN Prisoner))
+        (PP (IN of)
+          (NP (NNP Azkaban)))))
+    (VP (VBZ is)
+      (NP
+        (NP (DT a) (CD 2004) (NN fantasy) (NN film))
+        (VP
+          (VP (VBN directed)
+            (PP (IN by)
+              (NP (NNP Alfonso) (NNP Cuarón))))
+          (CC and)
+          (VP (VBN distributed)
+            (PP (IN by)
+              (NP (NNP Warner) (NNP Bros.)))))))
+    (. .)))
+
+Dependency Parsing: [('ROOT', 0, 12), ('compound', 2, 1), ('nsubj', 12, 2), ('cc', 5, 3), ('det', 5, 4), ('conj', 2, 5), ('case', 7, 6), ('nmod', 5, 7), ('cop', 12, 8), ('det', 12, 9), ('nummod', 12, 10), ('compound', 12, 11), ('acl', 12, 13), ('case', 16, 14), ('compound', 16, 15), ('obl', 13, 16), ('cc', 18, 17), ('conj', 12, 18), ('case', 21, 19), ('compound', 21, 20), ('obl', 18, 21), ('punct', 12, 22), ('ROOT', 0, 1), ('punct', 1, 2), ('ROOT', 0, 3), ('nsubj:pass', 3, 1), ('aux:pass', 3, 2), ('case', 6, 4), ('det', 6, 5), ('obl', 3, 6), ('case', 10, 7), ('det', 10, 8), ('amod', 10, 9), ('nmod', 6, 10), ('case', 14, 11), ('compound', 14, 12), ('compound', 14, 13), ('nmod', 6, 14), ('punct', 3, 15), ('ROOT', 0, 17), ('det', 2, 1), ('nsubj:pass', 17, 2), ('punct', 2, 3), ('nsubj', 8, 4), ('cop', 8, 5), ('det', 8, 6), ('amod', 8, 7), ('acl:relcl', 2, 8), ('case', 14, 9), ('det', 14, 10), ('compound', 12, 11), ('compound', 14, 12), ('compound', 14, 13), ('nmod', 8, 14), ('punct', 2, 15), ('aux:pass', 17, 16), ('case', 20, 18), ('compound', 20, 19), ('obl', 17, 20), ('cc', 22, 21), ('conj', 17, 22), ('case', 25, 23), ('compound', 25, 24), ('obl', 22, 25), ('punct', 25, 26), ('dep', 25, 27), ('case', 32, 28), ('det', 32, 29), ('amod', 32, 30), ('nummod', 32, 31), ('nmod', 27, 32), ('punct', 25, 33), ('punct', 25, 34), ('compound', 36, 35), ('conj', 25, 36), ('punct', 25, 37), ('cc', 40, 38), ('compound', 40, 39), ('conj', 25, 40), ('punct', 17, 41)]
+
