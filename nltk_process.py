@@ -1,16 +1,18 @@
-from stanfordcorenlp import StanfordCoreNLP
 import sys
 import nltk
+import spacy
 nltk.download('punkt')
 nltk.download('words')
 nltk.download('averaged_perceptron_tagger')
 nltk.download('maxent_ne_chunker')
+nltk.download('stopwords')
 from nltk.chunk import tree2conlltags
 
-
-class ArticleAnalysis:
+class NLTKProcessor:
     def __init__(self, article):
         self.article = open(article).read()
+        self.skip = set(nltk.corpus.stopwords.words('english'))
+
     
     def sentence_segmentation(self):
         self.sentences = nltk.sent_tokenize(self.article)
@@ -30,10 +32,11 @@ class ArticleAnalysis:
     
     def ner(self):
         # https://stackoverflow.com/questions/31836058/nltk-named-entity-recognition-to-a-python-list
-        self.ners = []
-        for sentence in self.poss:
-            self.ners.append(nltk.ne_chunk(sentence))
-        return self.ners
+        s = spacy.load('en_core_web_md')
+        self.ners = s(self.article)
+        # for sentence in self.poss:
+        #     self.ners.append(nltk.ne_chunk(sentence))
+        # return self.ners
     
     def process(self):
         self.sentence_segmentation()
@@ -44,11 +47,9 @@ class ArticleAnalysis:
 
 if __name__ == '__main__':
     article = sys.argv[1]
-    aa = ArticleAnalysis(article)
+    aa = NLTKProcessor(article)
     aa.process()
     print("1. Sentence Segmentation: ", aa.sentences)
     print("2. Word Tokenization: ", aa.tokenizes)
     print("3. POS: ", aa.poss)
-    print("4. NER: ")
-    for sentence in aa.ners:
-        print(tree2conlltags(sentence))
+    print("4. NER: ", aa.ners)

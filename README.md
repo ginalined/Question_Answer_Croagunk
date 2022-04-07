@@ -4,6 +4,8 @@
 ```
 pip3 install nltk
 pip3 install stanfordcorenlp   
+pip3 install spacy
+python3 -m spacy download en_core_web_md
 ./runserver.sh
 ```
 Citation: https://github.com/Lynten/stanford-corenlp
@@ -23,5 +25,5 @@ python3 article_analysis-stanza.py <article>
 ```
 - Using nltk:
 ```
-python3 article_analysis-nltk.py <article>
+python3 nltk_process.py <article>
 ```
