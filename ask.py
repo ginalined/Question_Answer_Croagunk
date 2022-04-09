@@ -1,6 +1,7 @@
 import sys
 from nltk_process import NLTKProcessor
 import nltk
+from question.question_generator import QuestionGenerator
 
 class Ask:
     def __init__(self, article, n):
