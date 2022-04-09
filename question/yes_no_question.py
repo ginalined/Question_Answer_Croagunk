@@ -12,17 +12,12 @@ AUX_VERBS = [
         'did','do','does',
         'shall',
         'will','would',
-        'should',
+        'should', 'shall',
         'may','might',
         'must',
         'can','could',
         'need',
-        'ought to',
         'dare',
-        'going to',
-        'be able to',
-        'have to',
-        'had better',
 ]
 SPACE_AFTER = [
         "}" , ")" , "]" , ">" , ".",
