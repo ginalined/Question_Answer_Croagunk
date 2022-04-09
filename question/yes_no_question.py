@@ -58,7 +58,7 @@ class YesNoQuestion:
                 continue
             if leaf == "–" or leaf == "-":
                 store = leaf
-            elif leaf in SPACE_AFTER or leaf[:1] == '–' or leaf[:1] == "-":
+            elif leaf in SPACE_AFTER or leaf[:1] == '–' or leaf[:1] == "-" or leaf[-1] == "'":
                 text += leaf
             else:
                 if store != "":
