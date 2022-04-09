@@ -25,9 +25,10 @@ AUX_VERBS = [
         'had better',
 ]
 SPACE_AFTER = [
-        '}' , ')' , ']' , '>' , '.',
-        ',' , ';' , ':' , '\'',
+        "}" , ")" , "]" , ">" , ".",
+        "," , ";" , ":", "'s",
 ]
+NO_SPACE = ["-",]
 # Determiner or Personal pronoun or Preposition or subordinating conjunction
 DEPS = ["DT", "IN", "PRP"]
 LEADING_VERBS = {
@@ -51,13 +52,20 @@ class YesNoQuestion:
         leafs = []
         self._collect_leaf_nodes(root,leafs)
         text = ""
+        store = ""
         for leaf in leafs:
             if leaf == skip:
                 continue
-            if leaf in SPACE_AFTER:
+            if leaf == "–" or leaf == "-":
+                store = leaf
+            elif leaf in SPACE_AFTER or leaf[:1] == '–' or leaf[:1] == "-":
                 text += leaf
             else:
-                text += " " + leaf
+                if store != "":
+                    text += store + leaf
+                    store = ""
+                else:
+                    text += " " + leaf
         return text.strip(), leafs
 
     def _collect_leaf_nodes(self, node, leafs):
