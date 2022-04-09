@@ -95,20 +95,24 @@ class YesNoQuestion:
                         grandchild = child.children[i]
                         con = grandchild.label
                         leading = ""
+                        need_lemma = False
                         aux, arr = self.get_leaf_string(grandchild)
                         if con == "MD" or arr[0] in AUX_VERBS:
                             leading = aux
                         elif con in LEADING_VERBS.keys():
                             leading = LEADING_VERBS[con]
+                            need_lemma = True
                         else:
                             continue
                         question = leading + " " + np.strip()
-                        for j in range(i, len(child.children)):
-                            replace = child.children[j]
-                            if replace.label == con:
-                                word = replace.children[0]
-                                lemma = WordNetLemmatizer().lemmatize(str(word), wordnet.VERB)
-                                child.children[j] = lemma
+                        if need_lemma:
+                            for j in range(i, len(child.children)):
+                                replace = child.children[j]
+                                if replace.label == con:
+                                    word = replace.children[0]
+                                    lemma = WordNetLemmatizer().lemmatize(str(word), wordnet.VERB)
+                                    child.children[j] = lemma
+                                
                         break
                     
                     text, _ = self.get_leaf_string(child, skip=aux)

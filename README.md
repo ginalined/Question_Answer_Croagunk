@@ -11,6 +11,9 @@ python3 -m spacy download en_core_web_md
 
 Citation: https://github.com/Lynten/stanford-corenlp
 
+### Ask usage
+`python3 ask.py <article> <n>`
+
 ### Stanfordcorenlp usage example
 `python3 corenlp.py`
 
