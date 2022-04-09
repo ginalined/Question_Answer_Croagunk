@@ -6,7 +6,6 @@ nltk.download('words')
 nltk.download('averaged_perceptron_tagger')
 nltk.download('maxent_ne_chunker')
 nltk.download('stopwords')
-from nltk.chunk import tree2conlltags
 
 class NLTKProcessor:
     def __init__(self, article):

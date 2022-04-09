@@ -1,3 +1,4 @@
 stanford-corenlp-4.4.0/
 .DS_Store
 __pycache__/
+stanford-parser-full-2020-11-17/

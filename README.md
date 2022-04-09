@@ -8,6 +8,9 @@ pip3 install spacy
 python3 -m spacy download en_core_web_md
 ./runserver.sh
 ```
+Download https://nlp.stanford.edu/software/stanford-parser-4.2.0.zip    
+unzip this in current repo    
+
 Citation: https://github.com/Lynten/stanford-corenlp
 
 ### Stanfordcorenlp usage example
