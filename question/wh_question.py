@@ -1,3 +1,3 @@
 class WhQuestion:
-    def __init__(self, dep_parse):
+    def __init__(self, source):
         return
