@@ -23,7 +23,12 @@ class Ask:
     def generate(self):
         yesno = YesNoQuestion(self.processor.processed_article)
         yesno.ask()
-        self.yesnoQ = yesno.questions
+        self.questions.extend(yesno.questions)
+        count = 0
+        for question in self.questions:
+            if count < self.n:
+                count += 1
+                print(question)
         # wh = WhQuestion(self.processor.processed_article)
         # return self.questions
 
@@ -42,11 +47,6 @@ if __name__ == '__main__':
     n = int(sys.argv[2])
     ask = Ask(article, n)
     ask.generate()
-    count = 0
-    for question in ask.yesnoQ:
-        if count < n:
-            count += 1
-            print(question)
 
     # TO see the graph: 
     # dep_parsing = ask.dep_parsing("The quick brown fox jumps over the lazy dog.")

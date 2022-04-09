@@ -1,8 +1,10 @@
 import sys
 import stanza
 import nltk
+from nltk.tree import *
 
-
+# xpos: https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
+# con: http://surdeanu.cs.arizona.edu//mihai/teaching/ista555-fall13/readings/PennTreebankConstituents.html
 class StanzaProcessor:
     def __init__(self, article):
         self.article = open(article).read()
@@ -20,6 +22,7 @@ class StanzaProcessor:
     def print_con_parse(self):
         for sent in self.processed_article.sentences:
             print(sent.constituency)
+            Tree.fromstring(str(sent.constituency)).pretty_print()
     
     def print_dep_parse(self):
         msg = ""
@@ -44,4 +47,4 @@ if __name__ == '__main__':
     article = sys.argv[1]
     aa = StanzaProcessor(article)
     aa.process()
-    aa.print_dep_parse()
+    aa.print_con_parse()
