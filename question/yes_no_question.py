@@ -5,29 +5,17 @@ nltk.download('omw-1.4')
 from nltk.corpus import wordnet 
 
 AUX_VERBS = [
-        'am',
-        'is',
-        'are',
-        'was',
-        'were',
-        'being',
-        'been',
-        'be',
-        'has',
-        'have',
-        'had',
-        'did',
+        'am','is','are',
+        'was','were',
+        'being','been','be',
+        'has','have','had',
+        'did','do','does',
         'shall',
-        'will',
+        'will','would',
         'should',
-        'would',
-        'may',
-        'might',
+        'may','might',
         'must',
-        'can',
-        'could',
-        'does',
-        'do'
+        'can','could',
         'need',
         'ought to',
         'dare',
@@ -52,24 +40,20 @@ class YesNoQuestion:
 
     def __init__(self, source):
         self.source = source
+        self.questions = []
 
     def ask(self):
         self.dep()
 
-    # xpos: https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
-
-
+    # get string made from leaf recursively
+    # https://stackoverflow.com/questions/21004181/how-to-get-leaf-nodes-of-a-tree-using-python
     def get_leaf_string(self, root, skip=None):
         leafs = []
         self._collect_leaf_nodes(root,leafs)
         text = ""
         for leaf in leafs:
-            # leaf_text = str(leaf)
             if leaf == skip:
                 continue
-            # if verb != None:
-            #     if leaf.label == verb:
-            #         leaf_text = WordNetLemmatizer().lemmatize(leaf_text, 'v')
             if leaf in SPACE_AFTER:
                 text += leaf
             else:
@@ -85,8 +69,6 @@ class YesNoQuestion:
                     self._collect_leaf_nodes(n, leafs)
     
     def dep(self):
-        self.questions = []
-        
         for sent in self.source.sentences:
             question = ''
             np = ''
