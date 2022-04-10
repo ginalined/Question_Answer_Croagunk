@@ -1,0 +1,27 @@
+#!/usr/bin/python3 -W ignore::DeprecationWarning
+# -*- coding:utf8 -*-
+import sys
+from stanza_process import StanzaProcessor
+
+class Answer:
+    def __init__(self, article, questions):
+        self.questions = questions
+        self.processor = StanzaProcessor(article)
+        self.processor.process()
+        self.answers = []
+    
+    def generate(self):
+        for question in self.questions:
+            print("Yes")
+
+if __name__ == "__main__":
+    article = sys.argv[1]
+    question_file = sys.argv[2]
+    questions = []
+    with open(question_file, 'r') as f:
+        count = 0
+        for line in f:
+            count += 1
+            questions.append(line)
+    answer = Answer(article, questions)
+    answer.generate

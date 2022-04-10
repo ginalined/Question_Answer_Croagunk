@@ -1,4 +1,5 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3 -W ignore::DeprecationWarning
+# -*- coding:utf8 -*-
 import sys
 from stanza_process import StanzaProcessor
 from question.wh_question import WhQuestion
