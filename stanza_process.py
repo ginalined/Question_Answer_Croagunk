@@ -2,6 +2,9 @@ import sys
 import stanza
 import nltk
 from nltk.tree import *
+import logging
+stanza_logger = logging.getLogger('stanza')
+stanza_logger.disabled = True
 
 # xpos: https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
 # con: http://surdeanu.cs.arizona.edu//mihai/teaching/ista555-fall13/readings/PennTreebankConstituents.html
