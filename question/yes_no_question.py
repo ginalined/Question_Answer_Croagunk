@@ -25,7 +25,8 @@ SPACE_AFTER = [
 ]
 NO_SPACE = ["-",]
 # Determiner or Personal pronoun or Preposition or subordinating conjunction
-DEPS = ["DT", "IN", "PRP"]
+DEPS = ["DT", "IN", "PRP", "PRP$"]
+LOWER = ["DT", "IN", "PRP", "PRP$", "JJ", "JJR", "JJS",]
 LEADING_VERBS = {
     "VBP":"do",
     "VBZ":"does",
@@ -51,10 +52,10 @@ class YesNoQuestion:
         for leaf in leafs:
             if leaf == skip:
                 continue
-            if leaf[-1] == '-' or leaf[-1] == '–':
-                no_space = " " + leaf
-            elif leaf == "–" or leaf == "-":
+            if leaf == "–" or leaf == "-":
                 no_space = leaf
+            elif leaf[-1] == '-' or leaf[-1] == '–':
+                no_space = " " + leaf
             elif leaf in SPACE_AFTER or leaf[:1] == '–' or leaf[:1] == "-" or leaf[-1] == "'":
                 text += leaf
             else:
@@ -65,13 +66,19 @@ class YesNoQuestion:
                     text += " " + leaf
         return text.strip(), leafs
 
-    def _collect_leaf_nodes(self, node, leafs):
+    def _collect_leaf_nodes(self, node, leafs, lower=False):
         if node is not None:
             if not hasattr(node, 'children') or len(node.children) == 0:
-                leafs.append(str(node))
+                text = str(node)
+                if lower:
+                    text = text.lower()
+                leafs.append(text)
             else:
                 for n in node.children:
-                    self._collect_leaf_nodes(n, leafs)
+                    if node.label in LOWER:
+                        self._collect_leaf_nodes(n, leafs, lower=True)
+                    else:
+                        self._collect_leaf_nodes(n, leafs, lower=False)
     
     def dep(self):
         for sent in self.source.sentences:
@@ -87,7 +94,7 @@ class YesNoQuestion:
                         if con in DEPS:
                             np += text.lower()
                             if np == "i":
-                                np = np.upper()
+                                np = "I"
                         else:
                             np += " "+ text
                     np += " "
@@ -106,7 +113,7 @@ class YesNoQuestion:
                             need_lemma = True
                         else:
                             continue
-                        if len(leading) != 0:
+                        if len(leading) != 0 and len(np) != 0:
                             question = leading + " " + np.strip()
                             if need_lemma:
                                 for j in range(i, len(child.children)):
