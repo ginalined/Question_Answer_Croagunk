@@ -45,13 +45,13 @@ class Answer:
         processed_question = StanzaProcessor(sentence=question).process()
 
         first_word = processed_question.sentences[0].words[0].text.lower()
-        if first_word == 'what':
+        if first_word == 'what' or first_word == 'which':
             return HowWhatWhyAnswer(processed_sentence, processed_question).what()
         elif first_word == 'how':
             return HowWhatWhyAnswer(processed_sentence, processed_question).how()
         elif first_word == 'why':
             return HowWhatWhyAnswer(processed_sentence, processed_question).why()
-        elif first_word == 'who':
+        elif first_word == 'who' or first_word == 'whom':
             return WhoWhenWhereAnswer(processed_sentence, processed_question).who()
         elif first_word == 'when':
             return WhoWhenWhereAnswer(processed_sentence, processed_question).when()
