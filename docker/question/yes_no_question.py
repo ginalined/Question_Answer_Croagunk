@@ -1,7 +1,4 @@
-import nltk
 from nltk.stem import WordNetLemmatizer
-nltk.download('wordnet', quiet=True)
-nltk.download('omw-1.4', quiet=True)
 from nltk.corpus import wordnet 
 
 AUX_VERBS = [

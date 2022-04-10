@@ -1,11 +1,10 @@
-#!/usr/bin/env python3 -W ignore::DeprecationWarning
+#!/usr/bin/env python3
 # -*- coding:utf8 -*-
 import sys
 from processor.stanza_process import StanzaProcessor
 from ans.how_what_why_answer import HowWhatWhyAnswer
 from ans.who_when_where_answer import WhoWhenWhereAnswer
 from ans.yes_no_answer import YesNoAnswer
-import random
 
 class Answer:
     def __init__(self, article, questions):
@@ -68,7 +67,6 @@ class Answer:
             self.answers.append(answer)
 
             # for testing
-            print(question)
             print(answer)
 
     

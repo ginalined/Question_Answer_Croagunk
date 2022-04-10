@@ -1,4 +1,4 @@
-#!/usr/bin/env python3 -W ignore::DeprecationWarning
+#!/usr/bin/env python3
 # -*- coding:utf8 -*-
 import sys
 from processor.stanza_process import StanzaProcessor
