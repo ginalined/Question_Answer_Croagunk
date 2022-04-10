@@ -17,16 +17,11 @@ RUN apt-get -y install python3-pip python3-dev
 RUN pip3 install --upgrade pip
 RUN pip3 install stanza
 RUN pip3 install nltk
-RUN pip3 install spacy
-RUN python3 -m spacy download en_core_web_lg
 
 # Add the files into QA
-RUN mkdir /QA
-ADD ask /QA
-ADD answer /QA
-ADD question/yes_no_question.py /QA
-ADD question/wh_question.py /QA
-ADD stanza_process.py /QA
+RUN mkdir /QA/
+COPY . /QA
+RUN python3 /QA/setup.py
 
 # Change the permissions of programs
 CMD ["chmod 777 /QA/*"]

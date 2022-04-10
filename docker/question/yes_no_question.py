@@ -1,7 +1,4 @@
-import nltk
 from nltk.stem import WordNetLemmatizer
-nltk.download('wordnet', quiet=True)
-nltk.download('omw-1.4', quiet=True)
 from nltk.corpus import wordnet 
 
 AUX_VERBS = [
@@ -25,7 +22,8 @@ SPACE_AFTER = [
 ]
 NO_SPACE = ["-",]
 # Determiner or Personal pronoun or Preposition or subordinating conjunction
-DEPS = ["DT", "IN", "PRP"]
+DEPS = ["DT", "IN", "PRP", "PRP$"]
+LOWER = ["DT", "IN", "PRP", "PRP$", "JJ", "JJR", "JJS",]
 LEADING_VERBS = {
     "VBP":"do",
     "VBZ":"does",
@@ -47,29 +45,37 @@ class YesNoQuestion:
         leafs = []
         self._collect_leaf_nodes(root,leafs)
         text = ""
-        store = ""
+        no_space = ""
         for leaf in leafs:
             if leaf == skip:
                 continue
             if leaf == "–" or leaf == "-":
-                store = leaf
+                no_space = leaf
+            elif leaf[-1] == '-' or leaf[-1] == '–':
+                no_space = " " + leaf
             elif leaf in SPACE_AFTER or leaf[:1] == '–' or leaf[:1] == "-" or leaf[-1] == "'":
                 text += leaf
             else:
-                if store != "":
-                    text += store + leaf
-                    store = ""
+                if no_space != "":
+                    text += no_space + leaf
+                    no_space = ""
                 else:
                     text += " " + leaf
         return text.strip(), leafs
 
-    def _collect_leaf_nodes(self, node, leafs):
+    def _collect_leaf_nodes(self, node, leafs, lower=False):
         if node is not None:
             if not hasattr(node, 'children') or len(node.children) == 0:
-                leafs.append(str(node))
+                text = str(node)
+                if lower:
+                    text = text.lower()
+                leafs.append(text)
             else:
                 for n in node.children:
-                    self._collect_leaf_nodes(n, leafs)
+                    if node.label in LOWER:
+                        self._collect_leaf_nodes(n, leafs, lower=True)
+                    else:
+                        self._collect_leaf_nodes(n, leafs, lower=False)
     
     def dep(self):
         for sent in self.source.sentences:
@@ -85,7 +91,7 @@ class YesNoQuestion:
                         if con in DEPS:
                             np += text.lower()
                             if np == "i":
-                                np = np.upper()
+                                np = "I"
                         else:
                             np += " "+ text
                     np += " "
@@ -104,19 +110,20 @@ class YesNoQuestion:
                             need_lemma = True
                         else:
                             continue
-                        question = leading + " " + np.strip()
-                        if need_lemma:
-                            for j in range(i, len(child.children)):
-                                replace = child.children[j]
-                                if replace.label == con:
-                                    word = replace.children[0]
-                                    lemma = WordNetLemmatizer().lemmatize(str(word), wordnet.VERB)
-                                    child.children[j] = lemma
-                                
-                        break
-                    
-                    text, _ = self.get_leaf_string(child, skip=aux)
-                    question += " " + text + "?"
-                    question = question.replace(".","").strip()
-                    question = question[:1].upper() + question[1:]
-                    self.questions.append(question)
+                        if len(leading) != 0 and len(np) != 0:
+                            question = leading + " " + np.strip()
+                            if need_lemma:
+                                for j in range(i, len(child.children)):
+                                    replace = child.children[j]
+                                    if replace.label == con:
+                                        word = replace.children[0]
+                                        lemma = WordNetLemmatizer().lemmatize(str(word), wordnet.VERB)
+                                        child.children[j] = lemma
+                                    
+                            break
+                    if len(question) != 0:
+                        text, _ = self.get_leaf_string(child, skip=aux)
+                        question += " " + text + "?"
+                        question = question.replace(".","").strip()
+                        question = question[:1].upper() + question[1:]
+                        self.questions.append(question)
