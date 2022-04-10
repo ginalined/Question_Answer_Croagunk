@@ -31,7 +31,7 @@ class NLTKProcessor:
     
     def ner(self):
         # https://stackoverflow.com/questions/31836058/nltk-named-entity-recognition-to-a-python-list
-        s = spacy.load('en_core_web_md')
+        s = spacy.load('en_core_web_lg')
         self.ners = s(self.article)
         # for sentence in self.poss:
         #     self.ners.append(nltk.ne_chunk(sentence))

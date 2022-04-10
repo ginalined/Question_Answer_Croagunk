@@ -1,3 +1,0 @@
-1. Sentence Segmentation:  ['Elon Musk.', 'Carnegie Mellon University?', 'Guangdong:"ok".']
-2. NER:  [[('Elon', 'PERSON'), ('Musk', 'PERSON'), ('.', 'O')], [('Carnegie', 'ORGANIZATION'), ('Mellon', 'ORGANIZATION'), ('University', 'ORGANIZATION'), ('?', 'O')], [('Guangdong', 'STATE_OR_PROVINCE'), (':', 'O'), ('"', 'O'), ('ok', 'O'), ('"', 'O'), ('.', 'O')]]
-3. POS:  [[('Elon', 'NNP'), ('Musk', 'NN'), ('.', '.')], [('Carnegie', 'NNP'), ('Mellon', 'NNP'), ('University', 'NNP'), ('?', '.')], [('Guangdong', 'NNP'), (':', ':'), ('"', '``'), ('ok', 'JJ'), ('"', "''"), ('.', '.')]]

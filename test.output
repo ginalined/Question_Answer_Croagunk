@@ -1,2 +1,0 @@
-Sentence Segmentation:  ['Elon Musk.', 'Carnegie Mellon University?', 'Guangdong:"ok".']
-NER:  [[('Elon', 'PERSON'), ('Musk', 'PERSON'), ('.', 'O')], [('Carnegie', 'ORGANIZATION'), ('Mellon', 'ORGANIZATION'), ('University', 'ORGANIZATION'), ('?', 'O')], [('Guangdong', 'STATE_OR_PROVINCE'), (':', 'O'), ('"', 'O'), ('ok', 'O'), ('"', 'O'), ('.', 'O')]]

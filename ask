@@ -1,7 +1,7 @@
-#!/usr/bin/python3 -W ignore::DeprecationWarning
+#!/usr/bin/env python3 -W ignore::DeprecationWarning
 # -*- coding:utf8 -*-
 import sys
-from stanza_process import StanzaProcessor
+from processor.stanza_process import StanzaProcessor
 from question.wh_question import WhQuestion
 from question.yes_no_question import YesNoQuestion
 
@@ -9,7 +9,7 @@ class Ask:
     def __init__(self, article, n):
         self.n = n
         self.questions = []
-        self.processor = StanzaProcessor(article)
+        self.processor = StanzaProcessor(article=article)
         self.processor.process()
     
     def generate(self):

@@ -1,18 +1,76 @@
-#!/usr/bin/python3 -W ignore::DeprecationWarning
+#!/usr/bin/env python3 -W ignore::DeprecationWarning
 # -*- coding:utf8 -*-
 import sys
-from stanza_process import StanzaProcessor
+from processor.stanza_process import StanzaProcessor
+from ans.how_what_why_answer import HowWhatWhyAnswer
+from ans.who_when_where_answer import WhoWhenWhereAnswer
+import random
 
 class Answer:
     def __init__(self, article, questions):
         self.questions = questions
-        self.processor = StanzaProcessor(article)
-        self.processor.process()
+        self.article = article
         self.answers = []
+    
+    def find_sentence(self, question, article):
+        """
+            TODO: find the sentence in article
+                ideas: using tf-idf, cosine similarity... 
+        """
+        return "not implemented"
+    
+    def classify_and_answer(self, question, sentence):
+        """
+            TODO: classify question into different types using leading word
+            then process the sentence using libraries
+
+                Binary: Is/are/was/were/did/do/does/has/had/have...
+                    - 我们可以先用随机来回答binary问题，后面再进一步改动
+            --------------
+                Who/Whom    NER Person
+                When        NER Date
+                Where       NER Location
+            ---------------
+                What/Which
+                    - is/are..  
+                    - else      
+                How
+                    - is/are..  
+                    - many/much
+                    - else      
+                Why
+        """
+        processed_sentence = StanzaProcessor(sentence=sentence).process()
+        processed_question = StanzaProcessor(sentence=question).process()
+
+        first_word = processed_question.sentences[0].words[0].text.lower()
+        if first_word == 'what':
+            answer = HowWhatWhyAnswer(processed_sentence, processed_question).what()
+        elif first_word == 'how':
+            answer = HowWhatWhyAnswer(processed_sentence, processed_question).how()
+        elif first_word == 'why':
+            answer = HowWhatWhyAnswer(processed_sentence, processed_question).why()
+        elif first_word == 'who':
+            answer = WhoWhenWhereAnswer(processed_sentence, processed_question).who()
+        elif first_word == 'when':
+            answer = WhoWhenWhereAnswer(processed_sentence, processed_question).when()
+        elif first_word == 'where':
+            answer = WhoWhenWhereAnswer(processed_sentence, processed_question).where()
+        else:
+            answer = str(bool(random.getrandbits(1)))
+        self.answers.append(answer)
     
     def generate(self):
         for question in self.questions:
-            print("Yes")
+            
+            sentence = self.find_sentence(question, self.article)
+            self.classify_and_answer(question, sentence)
+
+            # for testing
+            print(question)
+            print("yes")
+    
+    
 
 if __name__ == "__main__":
     article = sys.argv[1]
@@ -22,6 +80,6 @@ if __name__ == "__main__":
         count = 0
         for line in f:
             count += 1
-            questions.append(line)
+            questions.append(line.strip())
     answer = Answer(article, questions)
-    answer.generate
+    answer.generate()
