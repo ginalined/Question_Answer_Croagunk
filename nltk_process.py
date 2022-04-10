@@ -1,11 +1,11 @@
 import sys
 import nltk
 import spacy
-nltk.download('punkt')
-nltk.download('words')
-nltk.download('averaged_perceptron_tagger')
-nltk.download('maxent_ne_chunker')
-nltk.download('stopwords')
+nltk.download('punkt', quiet=True)
+nltk.download('words', quiet=True)
+nltk.download('averaged_perceptron_tagger', quiet=True)
+nltk.download('maxent_ne_chunker', quiet=True)
+nltk.download('stopwords', quiet=True)
 
 class NLTKProcessor:
     def __init__(self, article):

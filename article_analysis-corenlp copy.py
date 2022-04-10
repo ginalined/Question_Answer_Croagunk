@@ -1,7 +1,7 @@
 from stanfordcorenlp import StanfordCoreNLP
 import sys
 import nltk
-nltk.download('punkt')
+nltk.download('punkt', quiet=True)
 
 
 class ArticleAnalysis:
