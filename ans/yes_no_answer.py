@@ -1,17 +1,13 @@
-class WhoWhenWhereAnswer:
+import random
+
+class YesNoAnswer:
     def __init__(self, sentence, question):
         self.sentence = sentence
         self.question = question
         self.answer = ""
     
-    def who(self):
-        return "who not implemented"
-    
-    def when(self):
-        return "when not implemented"
-
-    def where(self):
-        return "where not implemented"
+    def answer(self):
+        return str(bool(random.getrandbits(1)))
     
     def rank(self):
         """

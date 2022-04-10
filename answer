@@ -4,6 +4,7 @@ import sys
 from processor.stanza_process import StanzaProcessor
 from ans.how_what_why_answer import HowWhatWhyAnswer
 from ans.who_when_where_answer import WhoWhenWhereAnswer
+from ans.yes_no_answer import YesNoAnswer
 import random
 
 class Answer:
@@ -45,31 +46,31 @@ class Answer:
 
         first_word = processed_question.sentences[0].words[0].text.lower()
         if first_word == 'what':
-            answer = HowWhatWhyAnswer(processed_sentence, processed_question).what()
+            return HowWhatWhyAnswer(processed_sentence, processed_question).what()
         elif first_word == 'how':
-            answer = HowWhatWhyAnswer(processed_sentence, processed_question).how()
+            return HowWhatWhyAnswer(processed_sentence, processed_question).how()
         elif first_word == 'why':
-            answer = HowWhatWhyAnswer(processed_sentence, processed_question).why()
+            return HowWhatWhyAnswer(processed_sentence, processed_question).why()
         elif first_word == 'who':
-            answer = WhoWhenWhereAnswer(processed_sentence, processed_question).who()
+            return WhoWhenWhereAnswer(processed_sentence, processed_question).who()
         elif first_word == 'when':
-            answer = WhoWhenWhereAnswer(processed_sentence, processed_question).when()
+            return WhoWhenWhereAnswer(processed_sentence, processed_question).when()
         elif first_word == 'where':
-            answer = WhoWhenWhereAnswer(processed_sentence, processed_question).where()
+            return WhoWhenWhereAnswer(processed_sentence, processed_question).where()
         else:
-            answer = str(bool(random.getrandbits(1)))
-        self.answers.append(answer)
+            return YesNoAnswer(processed_sentence, processed_question).answer()
     
     def generate(self):
         for question in self.questions:
             
             sentence = self.find_sentence(question, self.article)
-            self.classify_and_answer(question, sentence)
+            answer = self.classify_and_answer(question, sentence)
+            self.answers.append(answer)
 
             # for testing
             print(question)
-            print("yes")
-    
+            print(answer)
+
     
 
 if __name__ == "__main__":

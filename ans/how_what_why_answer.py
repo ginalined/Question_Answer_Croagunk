@@ -5,13 +5,13 @@ class HowWhatWhyAnswer:
         self.answer = ""
     
     def what(self):
-        return
+        return "what not implemented"
     
     def how(self):
-        return
+        return "how not implemented"
     
     def why(self):
-        return
+        return "why not implemented"
     
     def rank(self):
         """
