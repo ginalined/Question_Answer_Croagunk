@@ -47,18 +47,20 @@ class YesNoQuestion:
         leafs = []
         self._collect_leaf_nodes(root,leafs)
         text = ""
-        store = ""
+        no_space = ""
         for leaf in leafs:
             if leaf == skip:
                 continue
-            if leaf == "–" or leaf == "-":
-                store = leaf
+            if leaf[-1] == '-' or leaf[-1] == '–':
+                no_space = " " + leaf
+            elif leaf == "–" or leaf == "-":
+                no_space = leaf
             elif leaf in SPACE_AFTER or leaf[:1] == '–' or leaf[:1] == "-" or leaf[-1] == "'":
                 text += leaf
             else:
-                if store != "":
-                    text += store + leaf
-                    store = ""
+                if no_space != "":
+                    text += no_space + leaf
+                    no_space = ""
                 else:
                     text += " " + leaf
         return text.strip(), leafs
@@ -104,19 +106,20 @@ class YesNoQuestion:
                             need_lemma = True
                         else:
                             continue
-                        question = leading + " " + np.strip()
-                        if need_lemma:
-                            for j in range(i, len(child.children)):
-                                replace = child.children[j]
-                                if replace.label == con:
-                                    word = replace.children[0]
-                                    lemma = WordNetLemmatizer().lemmatize(str(word), wordnet.VERB)
-                                    child.children[j] = lemma
-                                
-                        break
-                    
-                    text, _ = self.get_leaf_string(child, skip=aux)
-                    question += " " + text + "?"
-                    question = question.replace(".","").strip()
-                    question = question[:1].upper() + question[1:]
-                    self.questions.append(question)
+                        if len(leading) != 0:
+                            question = leading + " " + np.strip()
+                            if need_lemma:
+                                for j in range(i, len(child.children)):
+                                    replace = child.children[j]
+                                    if replace.label == con:
+                                        word = replace.children[0]
+                                        lemma = WordNetLemmatizer().lemmatize(str(word), wordnet.VERB)
+                                        child.children[j] = lemma
+                                    
+                            break
+                    if len(question) != 0:
+                        text, _ = self.get_leaf_string(child, skip=aux)
+                        question += " " + text + "?"
+                        question = question.replace(".","").strip()
+                        question = question[:1].upper() + question[1:]
+                        self.questions.append(question)
