@@ -14,8 +14,9 @@ class WhQuestion:
     def __init__(self, processed):
         self.stanza = stanza.Pipeline(
             lang='en', processors='tokenize,ner,pos,lemma,depparse,constituency')
-        self.article = open("../tests/wh_test2.txt").read()
+        self.article = open("../tests/wh_test1.txt").read()
         self.nlp = processed
+        #self.nlp = self.stanza(self.article)
         self.questions = []
     
         #self.parsed_article = self.sp.sentence_segmentation()
@@ -119,6 +120,7 @@ class WhQuestion:
     
     def clean_output(self, output_text,main_verb):
         output_text[main_verb - 1] = self.word_map[main_verb].lemma
+        output_text[0] =  self.word_map[1].lemma
         output_text = list(filter(lambda x: x!="", output_text))
         output_text = " ".join(output_text[:-1]).strip()
         output_text = output_text.replace(" ,", ",")
@@ -222,9 +224,7 @@ class WhQuestion:
                         questions.append(question_text)
                     
 
-                        
-    
-                                        
+                                                                
                     for entity in entities_list:
                         output_text = [w.text for w in sentence.words]
                         question_starter = self.get_question_type(entity)
@@ -268,30 +268,9 @@ class WhQuestion:
                         
 
                 
-                
+# my_question = WhQuestion("hello")         
 
-
-        # for word in sentence.words:
-        #     print(word.text, word.lemma, word.pos)
-        # questions = []
-        # entities = self.nlp.get_entities(sentence)
-        # print(entities)
-
-        # if entities
-        # constitution = self.sp.get_con_parse(sentence)
-        # print(constitution)
-        # self.sp.print_dep_parse(sentence)
-        # for entity in entities:
-        #     #ask a question about person
-        #     if entity.type == "PERSON":
-        #         if entity.start_char == 0:
-        #             questions.append("Who" + sentence[entity.end_char:-1] + "?" )
-
-        # if entity.type == "DATE":
-        #     pass
-        # if entity.type == "TIME":
-
-        # print(questions)
+# print(my_question.generate_question())
 
 
 
