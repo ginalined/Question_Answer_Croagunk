@@ -12,21 +12,23 @@ class HowWhatWhyAnswer:
             # print(ner.text)
         for ent in self.sentence.ents:
             if ent.text not in self.question.text:
-                answer = ent.text
-
+                return ent.text
+        return "what can't find answer"
 
     
     def how(self):
         # return "how not implemented"
         for ent in self.sentence.ents:
             if ent.text not in self.question.text:
-                answer = ent.text
+                return ent.text
+        return "how can't find answer"
     
     def why(self):
         # return "why not implemented"
-         for ent in self.sentence.ents:
+        for ent in self.sentence.ents:
             if ent.text not in self.question.text:
-                answer = ent.text
+                return ent.text
+        return "why can't find answer"
     
     def rank(self):
         """
