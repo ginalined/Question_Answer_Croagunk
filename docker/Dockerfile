@@ -18,6 +18,7 @@ RUN pip3 install --upgrade pip
 RUN pip3 install stanza
 RUN pip3 install nltk
 RUN pip3 install pandas
+RUN pip3 install numpy
 
 # Add the files into QA
 RUN mkdir /QA/

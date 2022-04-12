@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding:utf8 -*-
 import sys
+from idlelib import query
+
+import numpy as np
 import pandas as pd
 import math
+import queue as Q
+
 from processor.stanza_process import StanzaProcessor
 from ans.how_what_why_answer import HowWhatWhyAnswer
 from ans.who_when_where_answer import WhoWhenWhereAnswer
 from ans.yes_no_answer import YesNoAnswer
-
 
 class Answer:
     def __init__(self, article, questions):
@@ -15,7 +19,8 @@ class Answer:
         self.article = article
         self.answers = []
         self.tfidf = {}
-    
+        self.wordDict = {}
+
     def calculate_tfidf(self, article):
         # using tf-idf
         # Define data and preprocessing
@@ -23,9 +28,9 @@ class Answer:
         wordSet = set(bow)
 
         # Counting the number of words
-        wordDict = dict.fromkeys(wordSet, 0)
+        self.wordDict = dict.fromkeys(wordSet, 0)
         for word in bow:
-            wordDict[word] += 1
+            self.wordDict[word] += 1
 
         # just showing the correctness of this part of function
         # pd.DataFrame(wordDict)
@@ -34,12 +39,12 @@ class Answer:
         tfDict = {}
         nbowCount = len(bow)
 
-        for word, count in wordDict.items():
+        for word, count in self.wordDict.items():
             tfDict[word] = count / nbowCount
 
         # computing IDF
-        idfDict = dict.fromkeys(wordDict, 0)
-        for word, count in wordDict.items():
+        idfDict = dict.fromkeys(self.wordDict, 0)
+        for word, count in self.wordDict.items():
             if count > 0:
                 idfDict[word] += 1
         for word, ni in idfDict.items():
@@ -50,14 +55,30 @@ class Answer:
             self.tfidf[word] = tfval * idfDict[word]
         # just showing the correctness of this part of function
         # pd.DataFrame(tfidf)
-    
+
+    def cosineSimilarity(self, vec1, vec2):
+        return np.dot(vec1, vec2.T) / (np.sqrt(np.sum(vec1 ** 2)) * np.sqrt(np.sum(vec2 ** 2)))
+
+    def computeSentenceEach(self, question):
+        question_tfidf = np.zeros(len(self.wordDict))
+        for word in question.strip().split(' '):
+            if word not in self.wordDict:
+                continue
+            question_tfidf[self.wordDict[word]] = self.tfidf[self.wordDict[word]]
+        return question_tfidf
+
     def find_sentence(self, question, article):
         """
             TODO: find the sentence in article
                 ideas: using tf-idf, cosine similarity... 
         """
-        self.tfidf # use this directly
-        return "Dempsey was born in Nacogdoches, Texas, and, for much of his childhood, his family lived in a trailer park, where he and his siblings grew up playing soccer with Hispanic immigrants. In his teens, Dempsey maintained these ties playing in a local Mexican-dominated adult league. Dempsey is of Irish descent on his father's side. His older brother Ryan was offered a tryout for the Dallas Texans, an elite youth soccer club, and brought Clint, who was noticed and recruited while passing time juggling a ball on the sidelines. Dempsey became a standout on the team at an early age but had to quit due to his family's time and money constraints as his eldest sister Jennifer was becoming a ranked youth tennis player. Several parents of his teammates with the Texans offered to assist the Dempseys with expenses and travel, allowing him to rejoin the club."
+        que = Q.PriorityQueue()
+        query_tfidf = self.computeSentenceEach(question.lower())
+        for i, vec in enumerate(self.tfidf):
+            result = self.cosineSimilarity(float(vec), query_tfidf)
+            que.put((-1 * result, i))
+        return np.array[0]
+        # return "Dempsey was born in Nacogdoches, Texas, and, for much of his childhood, his family lived in a trailer park, where he and his siblings grew up playing soccer with Hispanic immigrants. In his teens, Dempsey maintained these ties playing in a local Mexican-dominated adult league. Dempsey is of Irish descent on his father's side. His older brother Ryan was offered a tryout for the Dallas Texans, an elite youth soccer club, and brought Clint, who was noticed and recruited while passing time juggling a ball on the sidelines. Dempsey became a standout on the team at an early age but had to quit due to his family's time and money constraints as his eldest sister Jennifer was becoming a ranked youth tennis player. Several parents of his teammates with the Texans offered to assist the Dempseys with expenses and travel, allowing him to rejoin the club."
     
     def classify_and_answer(self, question, sentence):
         """
