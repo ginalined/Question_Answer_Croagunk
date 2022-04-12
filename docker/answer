@@ -78,8 +78,12 @@ class Answer:
                     - else      
                 Why
         """
-        processed_sentence = StanzaProcessor(sentence=sentence).process()
-        processed_question = StanzaProcessor(sentence=question).process()
+        processed_sentence = StanzaProcessor(sentence=sentence)
+        processed_sentence.process()
+        processed_sentence = processed_sentence.sentences[0]
+        processed_question = StanzaProcessor(sentence=question)
+        processed_question.process()
+        processed_question = processed_question.sentences[0]
 
         first_word = processed_question.sentences[0].words[0].text.lower()
         if first_word == 'what' or first_word == 'which':
