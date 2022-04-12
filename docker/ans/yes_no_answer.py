@@ -11,11 +11,11 @@ class YesNoAnswer:
         # return str(bool(random.getrandbits(1)))
         answer = "Yes"
         # if NERS unmatching
-        for ner in self.ners:
+        for ner in self.sentence.ners:
             if ner.text not in self.question:
                 answer = "No"
         # if parts match with not
-        for token in self.question:
+        for token in self.question.words:
             if token.text not in str(self.question.text) :
                 if token.text.endswith("n't") or token.tect.endswith('not') or token.text.endswith('no'):
                     answer = "No"

@@ -5,13 +5,28 @@ class WhoWhenWhereAnswer:
         self.answer = ""
     
     def who(self):
-        return "who not implemented"
+        answers = []
+        for ent in self.sentence.ners:
+            if ent.type == "PERSON":
+                answers.append(ent) # could be used for ranking
+                return ent
+        return "Who: can't find answer"
     
     def when(self):
-        return "when not implemented"
+        answers = []
+        for ent in self.sentence.ners:
+            if ent.type == "DATE":
+                answers.append(ent) # could be used for ranking
+                return ent
+        return "when can't find answer"
 
     def where(self):
-        return "where not implemented"
+        answers = []
+        for ent in self.sentence.ners:
+            if ent.type == "GPE":
+                answers.append(ent) # could be used for ranking
+                return ent
+        return "where can't find answer"
     
     def rank(self):
         """
@@ -23,7 +38,7 @@ class WhoWhenWhereAnswer:
         best_similarity = -1
         # 1. calculate the frequency of words
         lemmas = []
-        for token in self.ner:
+        for token in self.sentence.ners:
             lemmas.append(token.lemma_)
         term_f = {}
         for word in lemmas:
