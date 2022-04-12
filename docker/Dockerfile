@@ -17,6 +17,7 @@ RUN apt-get -y install python3-pip python3-dev
 RUN pip3 install --upgrade pip
 RUN pip3 install stanza
 RUN pip3 install nltk
+RUN pip3 install pandas
 
 # Add the files into QA
 RUN mkdir /QA/
