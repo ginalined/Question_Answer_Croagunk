@@ -24,6 +24,7 @@ RUN mkdir /QA/
 # COPY . /QA
 RUN mkdir -p /QA/question
 RUN mkdir -p /QA/processor
+RUN mkdir -p /QA/ans
 # RUN mkdir -p /QA/data
 # ADD test_questions.txt /QA
 ADD ask /QA
