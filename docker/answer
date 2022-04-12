@@ -124,6 +124,7 @@ if __name__ == "__main__":
         count = 0
         for line in f:
             count += 1
+            line = line.replace("?", "") # delete question mark
             questions.append(line.strip())
     answer = Answer(article, questions)
     answer.generate()
