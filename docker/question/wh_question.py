@@ -14,7 +14,7 @@ class WhQuestion:
     def __init__(self, processed):
         self.stanza = stanza.Pipeline(
             lang='en', processors='tokenize,ner,pos,lemma,depparse,constituency')
-        self.article = open("../tests/wh_test1.txt").read()
+        # self.article = open("../tests/wh_test1.txt").read()
         self.nlp = processed
         #self.nlp = self.stanza(self.article)
         self.questions = []

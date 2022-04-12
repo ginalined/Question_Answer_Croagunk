@@ -20,7 +20,22 @@ RUN pip3 install nltk
 
 # Add the files into QA
 RUN mkdir /QA/
-COPY . /QA
+# COPY . /QA
+RUN mkdir -p /QA/question
+RUN mkdir -p /QA/processor
+# RUN mkdir -p /QA/data
+# ADD test_questions.txt /QA
+ADD ask /QA
+ADD answer /QA
+ADD ans/how_what_why_answer.py /QA/ans
+ADD ans/who_when_where_answer.py /QA/ans
+ADD ans/yes_no_answer.py /QA/ans
+ADD question/yes_no_question.py /QA/question
+ADD question/wh_question.py /QA/question
+ADD processor/stanza_process.py /QA/processor
+# ADD data /QA/data
+ADD setup.py /QA
+# ADD test.sh /QA
 RUN python3 /QA/setup.py
 
 # Change the permissions of programs
