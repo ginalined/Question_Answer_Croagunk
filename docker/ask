@@ -21,12 +21,12 @@ class Ask:
         self.questions.extend(wh.questions)
 
         self.rank_questions()
-
-        count = 0
-        for question in self.questions:
-            if count < self.n:
-                count += 1
-                print(question)
+        
+        for i in range(0, self.n):
+            if i >= len(self.questions):
+                print("No more question")
+            else:
+                print(self.questions[i])
     
     def rank_questions(self):
         # TODO: rank questions before printing
