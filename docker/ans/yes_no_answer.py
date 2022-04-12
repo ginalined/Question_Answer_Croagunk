@@ -6,13 +6,13 @@ class YesNoAnswer:
         self.question = question
         self.answer = ""
     
-    def answer(self):
+    def yesno(self):
         # for testing
         # return str(bool(random.getrandbits(1)))
         answer = "Yes"
         # if NERS unmatching
-        for ner in self.sentence.ners:
-            if ner.text not in self.question:
+        for ner in self.sentence.ents:
+            if ner.text not in self.question.words:
                 answer = "No"
         # if parts match with not
         for token in self.question.words:

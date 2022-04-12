@@ -14,12 +14,9 @@ class Answer:
         self.questions = questions
         self.article = article
         self.answers = []
+        self.tfidf = {}
     
-    def find_sentence(self, question, article):
-        """
-            TODO: find the sentence in article
-                ideas: using tf-idf, cosine similarity... 
-        """
+    def calculate_tfidf(self, article):
         # using tf-idf
         # Define data and preprocessing
         bow = article.split(" ")
@@ -31,7 +28,7 @@ class Answer:
             wordDict[word] += 1
 
         # just showing the correctness of this part of function
-        pd.DataFrame(wordDict)
+        # pd.DataFrame(wordDict)
 
         # computing TF
         tfDict = {}
@@ -41,7 +38,7 @@ class Answer:
             tfDict[word] = count / nbowCount
 
         # computing IDF
-        idfDict = dict.fromkeys(wordDict)
+        idfDict = dict.fromkeys(wordDict, 0)
         for word, count in wordDict.items():
             if count > 0:
                 idfDict[word] += 1
@@ -49,13 +46,18 @@ class Answer:
             idfDict[word] = math.log10((3)/(ni + 1))
 
         # computing TF-IDF
-        tfidf = {}
         for word, tfval in tfDict.items():
-            tfidf[word] = tfval * idfDict[word]
+            self.tfidf[word] = tfval * idfDict[word]
         # just showing the correctness of this part of function
-        pd.DataFrame(tfidf)
-
-        return tfidf
+        # pd.DataFrame(tfidf)
+    
+    def find_sentence(self, question, article):
+        """
+            TODO: find the sentence in article
+                ideas: using tf-idf, cosine similarity... 
+        """
+        self.tfidf # use this directly
+        return "Dempsey was born in Nacogdoches, Texas, and, for much of his childhood, his family lived in a trailer park, where he and his siblings grew up playing soccer with Hispanic immigrants. In his teens, Dempsey maintained these ties playing in a local Mexican-dominated adult league. Dempsey is of Irish descent on his father's side. His older brother Ryan was offered a tryout for the Dallas Texans, an elite youth soccer club, and brought Clint, who was noticed and recruited while passing time juggling a ball on the sidelines. Dempsey became a standout on the team at an early age but had to quit due to his family's time and money constraints as his eldest sister Jennifer was becoming a ranked youth tennis player. Several parents of his teammates with the Texans offered to assist the Dempseys with expenses and travel, allowing him to rejoin the club."
     
     def classify_and_answer(self, question, sentence):
         """
@@ -78,14 +80,12 @@ class Answer:
                     - else      
                 Why
         """
-        processed_sentence = StanzaProcessor(sentence=sentence)
-        processed_sentence.process()
-        processed_sentence = processed_sentence.sentences[0]
-        processed_question = StanzaProcessor(sentence=question)
-        processed_question.process()
-        processed_question = processed_question.sentences[0]
+        stanza = StanzaProcessor(sentence=sentence).process()
+        processed_sentence = stanza.sentences[0]
+        stanza = StanzaProcessor(sentence=question).process()
+        processed_question = stanza.sentences[0]
 
-        first_word = processed_question.sentences[0].words[0].text.lower()
+        first_word = processed_question.words[0].text.lower()
         if first_word == 'what' or first_word == 'which':
             return HowWhatWhyAnswer(processed_sentence, processed_question).what()
         elif first_word == 'how':
@@ -99,9 +99,12 @@ class Answer:
         elif first_word == 'where':
             return WhoWhenWhereAnswer(processed_sentence, processed_question).where()
         else:
-            return YesNoAnswer(processed_sentence, processed_question).answer()
+            generate = YesNoAnswer(processed_sentence, processed_question)
+            return generate.yesno()
     
     def generate(self):
+        self.calculate_tfidf(self.article)
+
         for question in self.questions:
             
             sentence = self.find_sentence(question, self.article)

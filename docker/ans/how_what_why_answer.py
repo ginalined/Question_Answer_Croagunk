@@ -10,23 +10,23 @@ class HowWhatWhyAnswer:
             # print(token.pos)
         # for ner in self.ners:
             # print(ner.text)
-        for ner in self.ners:
-            if ner.text not in self.question.text:
-                answer = ner.text
+        for ent in self.sentence.ents:
+            if ent.text not in self.question.text:
+                answer = ent.text
 
 
     
     def how(self):
         # return "how not implemented"
-        for ner in self.ners:
-            if ner.text not in self.question.text:
-                answer = ner.text
+        for ent in self.sentence.ents:
+            if ent.text not in self.question.text:
+                answer = ent.text
     
     def why(self):
         # return "why not implemented"
-        for ner in self.ners:
-            if ner.text not in self.question.text:
-                answer = ner.text
+         for ent in self.sentence.ents:
+            if ent.text not in self.question.text:
+                answer = ent.text
     
     def rank(self):
         """
@@ -38,7 +38,7 @@ class HowWhatWhyAnswer:
         best_similarity = -1
         # 1. calculate the frequency of words
         lemmas = []
-        for token in self.ner:
+        for token in self.sentence.ents:
             lemmas.append(token.lemma_)
         term_f = {}
         for word in lemmas:
