@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding:utf8 -*-
 import sys
+import pandas as pd
+import math
 from processor.stanza_process import StanzaProcessor
 from ans.how_what_why_answer import HowWhatWhyAnswer
 from ans.who_when_where_answer import WhoWhenWhereAnswer
 from ans.yes_no_answer import YesNoAnswer
+
 
 class Answer:
     def __init__(self, article, questions):
@@ -17,7 +20,42 @@ class Answer:
             TODO: find the sentence in article
                 ideas: using tf-idf, cosine similarity... 
         """
-        return "not implemented"
+        # using tf-idf
+        # Define data and preprocessing
+        bow = article.split(" ")
+        wordSet = set(bow)
+
+        # Counting the number of words
+        wordDict = dict.fromkeys(wordSet, 0)
+        for word in bow:
+            wordDict[word] += 1
+
+        # just showing the correctness of this part of function
+        pd.DataFrame(wordDict)
+
+        # computing TF
+        tfDict = {}
+        nbowCount = len(bow)
+
+        for word, count in wordDict.items():
+            tfDict[word] = count / nbowCount
+
+        # computing IDF
+        idfDict = dict.fromkeys(wordDict)
+        for word, count in wordDict.items():
+            if count > 0:
+                idfDict[word] += 1
+        for word, ni in idfDict.items():
+            idfDict[word] = math.log10((3)/(ni + 1))
+
+        # computing TF-IDF
+        tfidf = {}
+        for word, tfval in tfDict.items():
+            tfidf[word] = tfval * idfDict[word]
+        # just showing the correctness of this part of function
+        pd.DataFrame(tfidf)
+
+        return tfidf
     
     def classify_and_answer(self, question, sentence):
         """
