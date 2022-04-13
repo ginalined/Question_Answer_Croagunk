@@ -1,85 +1,49 @@
 #!/usr/bin/env python3
 # -*- coding:utf8 -*-
 import sys
-from idlelib import query
-
-import numpy as np
-import pandas as pd
-import math
-import queue as Q
 
 from processor.stanza_process import StanzaProcessor
 from ans.how_what_why_answer import HowWhatWhyAnswer
 from ans.who_when_where_answer import WhoWhenWhereAnswer
 from ans.yes_no_answer import YesNoAnswer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 class Answer:
     def __init__(self, article, questions):
         self.questions = questions
-        self.article = open(article).read()
+        self.article = article
         self.answers = []
         self.tfidf = {}
-        self.wordDict = {}
 
     def calculate_tfidf(self, article):
-        # using tf-idf
-        # Define data and preprocessing
-        bow = article.split(" ")
-        wordSet = set(bow)
+        # Initialize a vectorizer that removes English stop words
+        vectorizer = TfidfVectorizer()
 
-        # Counting the number of words
-        self.wordDict = dict.fromkeys(wordSet, 0)
-        for word in bow:
-            self.wordDict[word] += 1
-
-        # just showing the correctness of this part of function
-        # pd.DataFrame(wordDict)
-
-        # computing TF
-        tfDict = {}
-        nbowCount = len(bow)
-
-        for word, count in self.wordDict.items():
-            tfDict[word] = count / nbowCount
-
-        # computing IDF
-        idfDict = dict.fromkeys(self.wordDict, 0)
-        for word, count in self.wordDict.items():
-            if count > 0:
-                idfDict[word] += 1
-        for word, ni in idfDict.items():
-            idfDict[word] = math.log10((3)/(ni + 1))
-
-        # computing TF-IDF
-        for word, tfval in tfDict.items():
-            self.tfidf[word] = tfval * idfDict[word]
-        # just showing the correctness of this part of function
-        # pd.DataFrame(tfidf)
-
-    def cosineSimilarity(self, vec1, vec2):
-        return np.dot(vec1, vec2.T) / (np.sqrt(np.sum(vec1 ** 2)) * np.sqrt(np.sum(vec2 ** 2)))
-
-    def computeSentenceEach(self, question):
-        question_tfidf = np.zeros(len(self.wordDict))
-        for word in question.strip().split(' '):
-            if word not in self.wordDict:
-                continue
-            question_tfidf[self.wordDict[word]] = self.tfidf[self.wordDict[word]]
-        return question_tfidf
+        # Create a corpus of query and documents and convert to TFIDF vectors
+        questions_and_article = self.questions + article
+        tfidf = vectorizer.fit_transform(questions_and_article)
+        for i, sentence in enumerate(questions_and_article):
+            self.tfidf[sentence] = tfidf[i]
 
     def find_sentence(self, question, article):
         """
             TODO: find the sentence in article
                 ideas: using tf-idf, cosine similarity... 
         """
-        que = Q.PriorityQueue()
-        query_tfidf = self.computeSentenceEach(question.lower())
-        for i, vec in enumerate(self.tfidf):
-            result = self.cosineSimilarity(float(vec), query_tfidf)
-            que.put((-1 * result, i))
-        return np.array[0]
-        # return "Dempsey was born in Nacogdoches, Texas, and, for much of his childhood, his family lived in a trailer park, where he and his siblings grew up playing soccer with Hispanic immigrants. In his teens, Dempsey maintained these ties playing in a local Mexican-dominated adult league. Dempsey is of Irish descent on his father's side. His older brother Ryan was offered a tryout for the Dallas Texans, an elite youth soccer club, and brought Clint, who was noticed and recruited while passing time juggling a ball on the sidelines. Dempsey became a standout on the team at an early age but had to quit due to his family's time and money constraints as his eldest sister Jennifer was becoming a ranked youth tennis player. Several parents of his teammates with the Texans offered to assist the Dempseys with expenses and travel, allowing him to rejoin the club."
+        # Holds our cosine similarity scores
+        scores = []
+
+        # The first vector is our query text, so compute the similarity of our query against all document vectors
+        for i in range(len(self.article)):
+            scores.append(cosine_similarity(self.tfidf[question], self.tfidf[self.article[i]])[0][0])
+
+        # Sort list of scores and return the top k highest scoring documents
+        sorted_list = sorted(enumerate(scores), key=lambda x: x[1], reverse=True)
+        
+        return self.article[sorted_list[0][0]]
     
+
     def classify_and_answer(self, question, sentence):
         """
             TODO: classify question into different types using leading word
@@ -101,12 +65,16 @@ class Answer:
                     - else      
                 Why
         """
+        print("process sentence:",sentence)
         stanza = StanzaProcessor(sentence=sentence).process()
         processed_sentence = stanza.sentences[0]
+        print("process question:",question)
         stanza = StanzaProcessor(sentence=question).process()
         processed_question = stanza.sentences[0]
 
+        print(type(processed_question))
         first_word = processed_question.words[0].text.lower()
+        print("first_word:", first_word)
         if first_word == 'what' or first_word == 'which':
             return HowWhatWhyAnswer(processed_sentence, processed_question).what()
         elif first_word == 'how':
@@ -129,6 +97,7 @@ class Answer:
         for question in self.questions:
             
             sentence = self.find_sentence(question, self.article)
+            # print(sentence)
             answer = self.classify_and_answer(question, sentence)
             self.answers.append(answer)
 
@@ -138,7 +107,15 @@ class Answer:
     
 
 if __name__ == "__main__":
-    article = sys.argv[1]
+    # article_file = "../data/set1/a1.txt"
+    article_file = sys.argv[1]
+    processor = StanzaProcessor(article=article_file)
+    processor.sentence_segmentation()
+    # processor.process()
+    article = processor.sentences
+    # print(article)
+
+    # question_file = "../test_questions.txt"
     question_file = sys.argv[2]
     questions = []
     with open(question_file, 'r') as f:
