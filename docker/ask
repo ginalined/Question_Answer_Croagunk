@@ -4,7 +4,7 @@ import sys
 from processor.stanza_process import StanzaProcessor
 from question.wh_question import WhQuestion
 from question.yes_no_question import YesNoQuestion
-
+import random
 class Ask:
     def __init__(self, article, n):
         self.n = n
@@ -16,7 +16,7 @@ class Ask:
         yesno = YesNoQuestion(self.processor.processed_article)
         wh = WhQuestion(self.processor.processed_article)
         yesno.ask()
-        wh.ask()
+        wh.ask(self.n)
         self.questions.extend(yesno.questions)
         self.questions.extend(wh.questions)
 
@@ -29,6 +29,7 @@ class Ask:
                 print(self.questions[i])
     
     def rank_questions(self):
+        random.shuffle(self.questions)
         # TODO: rank questions before printing
         return
     

@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding:utf8 -*-
 import sys
-from idlelib import query
 
 import numpy as np
 import pandas as pd
 import math
-import queue as Q
 
 from processor.stanza_process import StanzaProcessor
 from ans.how_what_why_answer import HowWhatWhyAnswer
@@ -16,10 +14,11 @@ from ans.yes_no_answer import YesNoAnswer
 class Answer:
     def __init__(self, article, questions):
         self.questions = questions
-        self.article = article
+        self.article = open(article).read()
         self.answers = []
         self.tfidf = {}
         self.wordDict = {}
+        
 
     def calculate_tfidf(self, article):
         # using tf-idf
@@ -62,7 +61,7 @@ class Answer:
     def computeSentenceEach(self, question):
         question_tfidf = np.zeros(len(self.wordDict))
         for word in question.strip().split(' '):
-            if word not in self.wordDict:
+            if word not in self.wordDict or self.wordDict[word] not in self.tfidf:
                 continue
             question_tfidf[self.wordDict[word]] = self.tfidf[self.wordDict[word]]
         return question_tfidf
@@ -72,11 +71,12 @@ class Answer:
             TODO: find the sentence in article
                 ideas: using tf-idf, cosine similarity... 
         """
-        que = Q.PriorityQueue()
+        que = []
         query_tfidf = self.computeSentenceEach(question.lower())
         for i, vec in enumerate(self.tfidf):
             result = self.cosineSimilarity(float(vec), query_tfidf)
-            que.put((-1 * result, i))
+            que.append([-1 * result, i])
+        que.sort(key = lambda x:x[0])
         return np.array[0]
         # return "Dempsey was born in Nacogdoches, Texas, and, for much of his childhood, his family lived in a trailer park, where he and his siblings grew up playing soccer with Hispanic immigrants. In his teens, Dempsey maintained these ties playing in a local Mexican-dominated adult league. Dempsey is of Irish descent on his father's side. His older brother Ryan was offered a tryout for the Dallas Texans, an elite youth soccer club, and brought Clint, who was noticed and recruited while passing time juggling a ball on the sidelines. Dempsey became a standout on the team at an early age but had to quit due to his family's time and money constraints as his eldest sister Jennifer was becoming a ranked youth tennis player. Several parents of his teammates with the Texans offered to assist the Dempseys with expenses and travel, allowing him to rejoin the club."
     
@@ -102,11 +102,32 @@ class Answer:
                 Why
         """
         stanza = StanzaProcessor(sentence=sentence).process()
+
         processed_sentence = stanza.sentences[0]
+        processed_sentence = stanza.sentences
+        matched = []
         stanza = StanzaProcessor(sentence=question).process()
         processed_question = stanza.sentences[0]
+        
+        question_word = set([w.text for w in processed_question.words])
+
+        for s in processed_sentence:
+            
+            matched.append([sum([c.text in question_word for c in s.words]),s.text])
+
+        matched.sort(reverse=True)
+        real_sentence = matched[0][1]
+        
+        
+        n = len(processed_sentence)
 
         first_word = processed_question.words[0].text.lower()
+        import random
+        if first_word not in ["what", "when", "who", "where", "why"]:
+            return random.choice(["Yes, ", "No, "]) + real_sentence
+        else:
+            return real_sentence
+            
         if first_word == 'what' or first_word == 'which':
             return HowWhatWhyAnswer(processed_sentence, processed_question).what()
         elif first_word == 'how':
@@ -124,12 +145,12 @@ class Answer:
             return generate.yesno()
     
     def generate(self):
-        self.calculate_tfidf(self.article)
+        #self.calculate_tfidf(self.article)
 
         for question in self.questions:
             
-            sentence = self.find_sentence(question, self.article)
-            answer = self.classify_and_answer(question, sentence)
+            #sentence = self.find_sentence(question, self.article)
+            answer = self.classify_and_answer(question, self.article)
             self.answers.append(answer)
 
             # for testing
