@@ -65,16 +65,12 @@ class Answer:
                     - else      
                 Why
         """
-        print("process sentence:",sentence)
         stanza = StanzaProcessor(sentence=sentence).process()
         processed_sentence = stanza.sentences[0]
-        print("process question:",question)
         stanza = StanzaProcessor(sentence=question).process()
         processed_question = stanza.sentences[0]
 
-        print(type(processed_question))
         first_word = processed_question.words[0].text.lower()
-        print("first_word:", first_word)
         if first_word == 'what' or first_word == 'which':
             return HowWhatWhyAnswer(processed_sentence, processed_question).what()
         elif first_word == 'how':
@@ -97,7 +93,6 @@ class Answer:
         for question in self.questions:
             
             sentence = self.find_sentence(question, self.article)
-            # print(sentence)
             answer = self.classify_and_answer(question, sentence)
             self.answers.append(answer)
 
