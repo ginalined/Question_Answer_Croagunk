@@ -16,7 +16,7 @@ from ans.yes_no_answer import YesNoAnswer
 class Answer:
     def __init__(self, article, questions):
         self.questions = questions
-        self.article = article
+        self.article = open(article).read()
         self.answers = []
         self.tfidf = {}
         self.wordDict = {}
