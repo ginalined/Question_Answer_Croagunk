@@ -4,6 +4,7 @@ import sys
 import stanza
 import nltk
 from nltk.tree import *
+from processor.stanza_process import StanzaProcessor
 import logging
 stanza_logger = logging.getLogger('stanza')
 stanza_logger.disabled = True
@@ -11,12 +12,11 @@ stanza_logger.disabled = True
 
 conjunctions = ["because"]
 class WhQuestion:
-    def __init__(self, processed):
+    def __init__(self, processed, n):
         self.stanza = stanza.Pipeline(
             lang='en', processors='tokenize,ner,pos,lemma,depparse,constituency')
-        # self.article = open("../tests/wh_test1.txt").read()
-        self.nlp = processed
-        #self.nlp = self.stanza(self.article)
+        self.source = processed
+        self.n = n * 2
         self.questions = []
     
         #self.parsed_article = self.sp.sentence_segmentation()
@@ -38,17 +38,18 @@ class WhQuestion:
 
     def print_dep_parse(self):
         msg = ""
-        for sent in self.nlp.sentences:
-            for word in sent.words:
-                msg += 'id: ' + str(word.id) + '\tword: ' + \
-                    word.text + '\thead id: ' + str(word.head)
-                if word.head > 0:
-                    msg += '\thead: ' + sent.words[word.head-1].text
-                else:
-                    msg += '\thead: root'
-                msg += '\tdeprel: ' + word.deprel
+        for paragraph in self.source:
+            for sent in paragraph.sentences:
+                for word in sent.words:
+                    msg += 'id: ' + str(word.id) + '\tword: ' + \
+                        word.text + '\thead id: ' + str(word.head)
+                    if word.head > 0:
+                        msg += '\thead: ' + sent.words[word.head-1].text
+                    else:
+                        msg += '\thead: root'
+                    msg += '\tdeprel: ' + word.deprel
+                    msg += '\n'
                 msg += '\n'
-            msg += '\n'
         print(msg)
 
 
@@ -174,94 +175,99 @@ class WhQuestion:
         questions = []
 
         #self.print_dep_parse()
-        for complex_sentence in self.nlp.sentences:
-            
-            constituency = complex_sentence.constituency
-        
-            simple_sentences = self.split_sentence(complex_sentence, constituency)
-       
-            for sentence in simple_sentences:
-                try:
+        for paragraph in self.source:
+            if len(questions) >= self.n:
+                return questions
+            processed_paragraph = StanzaProcessor(sentence=paragraph).process()
+            for complex_sentence in processed_paragraph.sentences:
                 
-                    sentence_text = sentence.text
-
-                    self.word_map = collections.defaultdict()
-                    dependency = sentence.dependencies
-                    for w in sentence.words:
-                        self.word_map[w.id] = w
-                        #print(w.id, w.text, w.head,  w.pos, w.xpos, w.upos)
-                        #[w.id, w.text, w.lemma, w.pos, w.start_char, w.end_char, w.head]
-
-                    entities_list = sentence.entities
+                constituency = complex_sentence.constituency
+            
+                simple_sentences = self.split_sentence(complex_sentence, constituency)
         
-        
+                for sentence in simple_sentences:
+
+                    try:
+                    
+                        sentence_text = sentence.text
+
+                        self.word_map = collections.defaultdict()
+                        dependency = sentence.dependencies
+                        for w in sentence.words:
+                            self.word_map[w.id] = w
+                            #print(w.id, w.text, w.head,  w.pos, w.xpos, w.upos)
+                            #[w.id, w.text, w.lemma, w.pos, w.start_char, w.end_char, w.head]
+
+                        entities_list = sentence.entities
+            
+            
+                            
+                        main_verb, main_aux = self.find_verb(sentence)
+                        if main_verb == -1:
+                            continue
                         
-                    main_verb, main_aux = self.find_verb(sentence)
-                    if main_verb == -1:
+                        questions += self.generate_why_question(sentence, main_verb, main_aux)
+
+                        # generate question based on entities
+                
+                        if sentence.words[0].pos == "VERB":
+                            question_text = ""
+                            question_starter = "What"
+                            for i, w in enumerate(sentence.words):
+                                
+                                if w.text != ',':
+                                    if i == 0:question_text +=  w.text.lower()
+                                    else: question_text += " "+ w.text
+                                else:
+                                    next_word = sentence.words[i+1]
+                                    for entity in entities_list:
+                                        if next_word.start_char == entity.start_char:
+                                            question_starter = self.get_question_type(entity)
+                                    break
+                                                            
+                            question_text = self.format_question(question_starter, question_text, "was")
+                            
+                            questions.append(question_text)
+                        
+
+                                                                    
+                        for entity in entities_list:
+                            output_text = [w.text for w in sentence.words]
+                            question_starter = self.get_question_type(entity)
+                            # ask a question about person
+                            if entity.type == "PERSON":
+
+                                if sentence_text.startswith(entity.text):
+                                    questions.append(
+                                    question_starter + sentence_text[len(entity.text):-1] + "?")
+                                
+
+                            elif entity.type == "DATE" or entity.type == "GPE":
+
+                                date_range = [x.id[0] for x in entity.tokens]
+                            
+                                for entity_id in date_range:
+                                    output_text[entity_id-1] = ""
+
+                                prev_index, post_index = date_range[0]-1, date_range[-1]+1
+                                if prev_index in self.word_map:
+                                    prev_word = self.word_map[prev_index]
+                
+                                if prev_word.upos == "ADP":
+                                    output_text[prev_index-1] = ""
+                        
+                                if post_index in self.word_map:
+                                    post_word = self.word_map[post_index]
+                                    if post_word.xpos == ",":
+                                        output_text[post_index-1] = ""
+                                        
+                                output_text = self.clean_output(output_text, main_verb)
+
+                                question = self.format_question(question_starter, output_text, main_aux)
+                                questions.append(question)
+                                
+                    except Exception as e:
                         continue
-                    
-                    questions += self.generate_why_question(sentence, main_verb, main_aux)
-
-                    # generate question based on entities
-            
-                    if sentence.words[0].pos == "VERB":
-                        question_text = ""
-                        question_starter = "What"
-                        for i, w in enumerate(sentence.words):
-                            
-                            if w.text != ',':
-                                if i == 0:question_text +=  w.text.lower()
-                                else: question_text += " "+ w.text
-                            else:
-                                next_word = sentence.words[i+1]
-                                for entity in entities_list:
-                                    if next_word.start_char == entity.start_char:
-                                        question_starter = self.get_question_type(entity)
-                                break
-                                                           
-                        question_text = self.format_question(question_starter, question_text, "was")
-                        
-                        questions.append(question_text)
-                    
-
-                                                                
-                    for entity in entities_list:
-                        output_text = [w.text for w in sentence.words]
-                        question_starter = self.get_question_type(entity)
-                        # ask a question about person
-                        if entity.type == "PERSON":
-
-                            if sentence_text.startswith(entity.text):
-                                questions.append(
-                                question_starter + sentence_text[len(entity.text):-1] + "?")
-                            
-
-                        elif entity.type == "DATE" or entity.type == "GPE":
-
-                            date_range = [x.id[0] for x in entity.tokens]
-                        
-                            for entity_id in date_range:
-                                output_text[entity_id-1] = ""
-
-                            prev_index, post_index = date_range[0]-1, date_range[-1]+1
-                            if prev_index in self.word_map:
-                                prev_word = self.word_map[prev_index]
-            
-                            if prev_word.upos == "ADP":
-                                output_text[prev_index-1] = ""
-                    
-                            if post_index in self.word_map:
-                                post_word = self.word_map[post_index]
-                                if post_word.xpos == ",":
-                                    output_text[post_index-1] = ""
-                                    
-                            output_text = self.clean_output(output_text, main_verb)
-
-                            question = self.format_question(question_starter, output_text, main_aux)
-                            questions.append(question)
-                            
-                except Exception as e:
-                    continue
                     
         return questions
                         

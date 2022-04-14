@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding:utf8 -*-
+from concurrent.futures import process
 import sys
 from processor.stanza_process import StanzaProcessor
 from question.wh_question import WhQuestion
@@ -9,15 +10,16 @@ class Ask:
     def __init__(self, article, n):
         self.n = n
         self.questions = []
-        self.processor = StanzaProcessor(article=article)
-        self.processor.process()
+        article = open(article).read()
+        self.paragraphs = [s.strip() for s in article.splitlines()]
     
     def generate(self):
-        yesno = YesNoQuestion(self.processor.processed_article)
-        wh = WhQuestion(self.processor.processed_article)
+        yesno = YesNoQuestion(self.paragraphs, self.n)
         yesno.ask()
-        wh.ask()
         self.questions.extend(yesno.questions)
+        
+        wh = WhQuestion(self.paragraphs, self.n)
+        wh.ask()
         self.questions.extend(wh.questions)
 
         self.rank_questions()
@@ -27,6 +29,7 @@ class Ask:
                 print("No more question")
             else:
                 print(self.questions[i])
+        print(len(self.questions))
     
     def rank_questions(self):
         # TODO: rank questions before printing
