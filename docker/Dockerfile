@@ -19,6 +19,9 @@ RUN pip3 install stanza
 RUN pip3 install nltk
 RUN pip3 install pandas
 RUN pip3 install numpy
+RUN pip3 install spacy
+RUN pip3 install neuralcoref
+RUN python3 -m spacy download en_core_web_sm
 RUN pip3 install -U scikit-learn
 RUN apt-get install idle3 -y
 

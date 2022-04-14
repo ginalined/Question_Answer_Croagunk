@@ -3,7 +3,6 @@ from nltk.corpus import wordnet
 from stanza.server import CoreNLPClient
 from processor.stanza_process import StanzaProcessor
 
-
 AUX_VERBS = [
     "am",
     "is",
@@ -151,17 +150,23 @@ class YesNoQuestion:
                                 grandchild = child.children[i]
                                 con = grandchild.label
                                 leading = ""
+                                leading_arr = []
                                 need_lemma = False
                                 aux, arr = self.get_leaf_string(grandchild)
                                 if con == "MD" or arr[0] in AUX_VERBS:
                                     leading = aux
+                                    leading_arr = arr
                                 elif con in LEADING_VERBS.keys():
                                     leading = LEADING_VERBS[con]
                                     need_lemma = True
                                 else:
                                     continue
-                                if len(leading) != 0 and len(np) != 0:
-                                    question = leading + " " + np.strip()
+                                if len(leading) != 0 and len(np.strip()) != 0:
+                                    if len(leading_arr) > 1:
+                                        leading_arr[0] = leading_arr[0] + " " + np.strip()
+                                        question = ' '.join(leading_arr)
+                                    else:
+                                        question = leading + " " + np.strip()
                                     if need_lemma:
                                         for j in range(i, len(child.children)):
                                             replace = child.children[j]
@@ -174,8 +179,10 @@ class YesNoQuestion:
 
                                     break
                             if len(question) != 0:
-                                text, _ = self.get_leaf_string(child, skip=aux)
-                                question += " " + text + "?"
+                                if len(leading_arr) <= 1:
+                                    text, _ = self.get_leaf_string(child, skip=aux)
+                                    question += " " + text
+                                question += "?"
                                 question = question.replace(".", "").strip()
-                                question = question[:1].upper() + question[1:]
+                                question = question[:1].upper() + question[1:] # cap first char
                                 self.questions.append(question)
