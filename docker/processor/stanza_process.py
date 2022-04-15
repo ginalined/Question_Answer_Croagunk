@@ -19,7 +19,6 @@ class StanzaProcessor:
         self.stanza = stanza.Pipeline(
             lang="en",
             processors="tokenize,ner,pos,lemma,depparse,constituency",
-            tokenize_pretokenized=True,
         )
 
     def sentence_segmentation(self):
@@ -27,6 +26,12 @@ class StanzaProcessor:
         return self.sentences
 
     def process(self):
+        self.article = "".join(
+            "{}.\n".format(item)
+            if (item and item[-1] not in "!?.,-")
+            else "{}\n".format(item)
+            for item in self.article.split("\n")
+        )
         self.processed_article = self.stanza(self.article)
         return self.processed_article
 
