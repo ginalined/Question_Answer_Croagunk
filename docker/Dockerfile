@@ -20,7 +20,6 @@ RUN pip3 install nltk
 RUN pip3 install pandas
 RUN pip3 install numpy
 RUN pip3 install -U spacy
-RUN python3 -m spacy download en_core_web_sm
 RUN pip3 install -U scikit-learn
 
 # Add the files into QA
