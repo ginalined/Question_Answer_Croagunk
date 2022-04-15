@@ -21,7 +21,7 @@ RUN pip3 install pandas
 RUN pip3 install numpy
 RUN pip3 install -U spacy
 RUN pip3 install -U scikit-learn
-RUN pip3 install pytorch
+RUN pip3 install torch
 RUN pip3 install transformers
 RUN apt-get install idle3 -y
 
