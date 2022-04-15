@@ -68,4 +68,3 @@ class HowWhatWhyAnswer:
                         best_idx = sentence_id
         return sentences[best_idx]
 
-

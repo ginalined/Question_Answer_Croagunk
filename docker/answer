@@ -10,23 +10,23 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 class Answer:
-    def __init__(self, sentences, questions):
+    def __init__(self, article, questions):
         self.questions = questions
-        self.sentences = sentences
+        self.article = article
         self.answers = []
         self.tfidf = {}
 
-    def calculate_tfidf(self):
+    def calculate_tfidf(self, article):
         # Initialize a vectorizer that removes English stop words
         vectorizer = TfidfVectorizer()
 
         # Create a corpus of query and documents and convert to TFIDF vectors
-        questions_and_article = self.questions + self.sentences
+        questions_and_article = self.questions + article
         tfidf = vectorizer.fit_transform(questions_and_article)
         for i, sentence in enumerate(questions_and_article):
             self.tfidf[sentence] = tfidf[i]
 
-    def find_sentence(self, question):
+    def find_sentence(self, question, article):
         """
             TODO: find the sentence in article
                 ideas: using tf-idf, cosine similarity... 
@@ -35,13 +35,13 @@ class Answer:
         scores = []
 
         # The first vector is our query text, so compute the similarity of our query against all document vectors
-        for i in range(len(self.sentences)):
-            scores.append(cosine_similarity(self.tfidf[question], self.tfidf[self.sentences[i]])[0][0])
+        for i in range(len(self.article)):
+            scores.append(cosine_similarity(self.tfidf[question], self.tfidf[self.article[i]])[0][0])
 
         # Sort list of scores and return the top k highest scoring documents
         sorted_list = sorted(enumerate(scores), key=lambda x: x[1], reverse=True)
         
-        return self.sentences[sorted_list[0][0]]
+        return self.article[sorted_list[0][0]]
     
 
     def classify_and_answer(self, question, sentence):
@@ -87,11 +87,14 @@ class Answer:
             return generate.yesno()
     
     def generate(self):
-        self.calculate_tfidf()
+        self.calculate_tfidf(self.article)
+
         for question in self.questions:
-            sentence = self.find_sentence(question)
+            
+            sentence = self.find_sentence(question, self.article)
             answer = self.classify_and_answer(question, sentence)
             self.answers.append(answer)
+
             # for testing
             print(answer)
 
@@ -99,11 +102,12 @@ class Answer:
 
 if __name__ == "__main__":
     # article_file = "../data/set1/a1.txt"
-    file = sys.argv[1]
-    processor = StanzaProcessor(file=file)
+    article_file = sys.argv[1]
+    processor = StanzaProcessor(file=article_file)
     processor.sentence_segmentation()
     # processor.process()
-    sentences = processor.sentences
+    article = processor.sentences
+    # print(article)
 
     # question_file = "../test_questions.txt"
     question_file = sys.argv[2]
@@ -114,5 +118,5 @@ if __name__ == "__main__":
             count += 1
             line = line.replace("?", "") # delete question mark
             questions.append(line.strip())
-    answer = Answer(sentences, questions)
+    answer = Answer(article, questions)
     answer.generate()
