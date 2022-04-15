@@ -20,7 +20,7 @@ class WhQuestion:
             lang="en", processors="tokenize,ner,pos,lemma,depparse,constituency"
         )
         self.source = source
-        self.n = n / 2 + 1
+        self.n = n * 2
         self.questions = []
 
         # self.parsed_article = self.sp.sentence_segmentation()

@@ -67,7 +67,7 @@ LEADING_VERBS = {
 class YesNoQuestion:
     def __init__(self, source, n):
         self.source = source
-        self.n = n / 2 + 1
+        self.n = n * 2
         self.questions = []
 
     def ask(self):

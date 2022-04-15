@@ -4,6 +4,7 @@ import sys
 from question.wh_question import WhQuestion
 from question.yes_no_question import YesNoQuestion
 from processor.stanza_process import StanzaProcessor
+from processor.nltk_process import get_score
 from string import punctuation
 import spacy
 
@@ -71,12 +72,18 @@ class Ask:
         self.rank_and_print_questions()
     
     def rank_and_print_questions(self):
-        # TODO: rank questions before printing
+        # rank questions using ppl score before printing
+        rank = {}
+        for question in self.questions:
+            rank[question] = get_score(question)
+            
+        sort_rank = [k for k, _ in sorted(rank.items(), key=lambda item: item[1])]
+        
         for i in range(0, self.n):
-            if i >= len(self.questions):
+            if i >= len(rank):
                 print("No more question")
             else:
-                print(self.questions[i])
+                print(sort_rank[i])
     
 if __name__ == '__main__':
     file = sys.argv[1]
