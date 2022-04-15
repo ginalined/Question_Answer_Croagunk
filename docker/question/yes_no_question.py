@@ -1,9 +1,5 @@
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import wordnet
-from processor.stanza_process import StanzaProcessor
-import logging
-stanza_logger = logging.getLogger('stanza')
-stanza_logger.disabled = True
 
 AUX_VERBS = [
     "am",
