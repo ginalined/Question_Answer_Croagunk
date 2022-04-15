@@ -1,10 +1,8 @@
 import sys
 import stanza
+import nltk
 from nltk.tree import *
 import logging
-import spacy
-from string import punctuation
-nlp = spacy.load('en_core_web_sm')
 stanza_logger = logging.getLogger('stanza')
 stanza_logger.disabled = True
 
@@ -13,35 +11,19 @@ stanza_logger.disabled = True
 class StanzaProcessor:
     def __init__(self, article=None, sentence=None):
         if article is not None:
-            self.source = open(article).read()
+            self.article = open(article).read()
         elif sentence is not None:
-            self.source = sentence
+            self.article = sentence
         # https://stanfordnlp.github.io/stanza/ner.html
         self.stanza = stanza.Pipeline(lang='en', processors='tokenize,ner,pos,lemma,depparse,constituency')
-
-    def process(self):
-        self.source = self.pronoun_coref(self.source)
-        self.processed_article = self.stanza(self.source)
-        return self.processed_article
     
-    # https://stackoverflow.com/questions/64284835/replace-personal-pronoun-with-previous-person-mentioned-noisy-coref
-    def pronoun_coref(self, text):
-        doc = nlp(text)
-        pronouns = [(tok, tok.i) for tok in doc if (tok.tag_ == "PRP")]
-        names = [(ent.text, ent[0].i) for ent in doc.ents if ent.label_ == 'PERSON']
-        doc = [tok.text_with_ws for tok in doc]
-        for p in pronouns:
-            replace = max(filter(lambda x: x[1] < p[1], names),
-                        key=lambda x: x[1], default=False)
-            if replace:
-                replace = replace[0]
-                if doc[p[1] - 1] in punctuation:
-                    replace = ' ' + replace
-                if doc[p[1] + 1] not in punctuation:
-                    replace = replace + ' '
-                doc[p[1]] = replace
-        doc = ''.join(doc)
-        return doc
+    def sentence_segmentation(self):
+        self.sentences = nltk.sent_tokenize(self.article)
+        return self.sentences
+    
+    def process(self):
+        self.processed_article = self.stanza(self.article)
+        return self.processed_article
 
     def print_con_parse(self):
         for sent in self.processed_article.sentences:
