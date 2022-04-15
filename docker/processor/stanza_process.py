@@ -3,7 +3,8 @@ import stanza
 import nltk
 from nltk.tree import *
 import logging
-stanza_logger = logging.getLogger('stanza')
+
+stanza_logger = logging.getLogger("stanza")
 stanza_logger.disabled = True
 
 # xpos: https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
@@ -15,12 +16,16 @@ class StanzaProcessor:
         elif raw is not None:
             self.article = raw
         # https://stanfordnlp.github.io/stanza/ner.html
-        self.stanza = stanza.Pipeline(lang='en', processors='tokenize,ner,pos,lemma,depparse,constituency')
-    
+        self.stanza = stanza.Pipeline(
+            lang="en",
+            processors="tokenize,ner,pos,lemma,depparse,constituency",
+            tokenize_pretokenized=True,
+        )
+
     def sentence_segmentation(self):
         self.sentences = nltk.sent_tokenize(self.article)
         return self.sentences
-    
+
     def process(self):
         self.processed_article = self.stanza(self.article)
         return self.processed_article
@@ -29,27 +34,34 @@ class StanzaProcessor:
         for sent in self.processed_article.sentences:
             print(sent.constituency)
             Tree.fromstring(str(sent.constituency)).pretty_print()
-    
+
     def print_dep_parse(self):
         msg = ""
         for sent in self.processed_article.sentences:
             for word in sent.words:
-                msg += 'id: '+ str(word.id) + '\tword: ' + word.text + '\thead id: ' + str(word.head)
+                msg += (
+                    "id: "
+                    + str(word.id)
+                    + "\tword: "
+                    + word.text
+                    + "\thead id: "
+                    + str(word.head)
+                )
                 if word.head > 0:
-                    msg += '\thead: ' + sent.words[word.head-1].text
+                    msg += "\thead: " + sent.words[word.head - 1].text
                 else:
-                    msg += '\thead: root'
-                msg+= '\tdeprel: ' + word.deprel
-            msg+='\n'
+                    msg += "\thead: root"
+                msg += "\tdeprel: " + word.deprel
+            msg += "\n"
         print(msg)
-    
+
     def print_ent_parse(self):
         for sent in self.processed_article.sentences:
             for ent in sent.ents:
-                print(f'entity: {ent.text}\ttype: {ent.type}')
+                print(f"entity: {ent.text}\ttype: {ent.type}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     file = sys.argv[1]
     aa = StanzaProcessor(file)
     aa.process()
