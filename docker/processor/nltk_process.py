@@ -1,7 +1,5 @@
 import sys
 import nltk
-from nltk import CFG
-from transformers import AutoModelForMaskedLM, AutoTokenizer
 import torch
 import numpy as np
 import logging

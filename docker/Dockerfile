@@ -41,6 +41,7 @@ ADD ans/yes_no_answer.py /QA/ans
 ADD question/yes_no_question.py /QA/question
 ADD question/wh_question.py /QA/question
 ADD processor/stanza_process.py /QA/processor
+ADD processor/nltk_process.py /QA/processor
 # ADD data /QA/data
 ADD setup.py /QA
 # ADD test.sh /QA
