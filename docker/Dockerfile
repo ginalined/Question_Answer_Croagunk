@@ -21,6 +21,7 @@ RUN pip3 install pandas
 RUN pip3 install numpy
 RUN pip3 install -U spacy
 RUN pip3 install -U scikit-learn
+RUN apt-get install idle3 -y
 
 # Add the files into QA
 RUN mkdir /QA/

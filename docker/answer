@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding:utf8 -*-
 import sys
-
+import nltk
 from processor.stanza_process import StanzaProcessor
 from ans.how_what_why_answer import HowWhatWhyAnswer
 from ans.who_when_where_answer import WhoWhenWhereAnswer
@@ -103,10 +103,8 @@ class Answer:
 if __name__ == "__main__":
     # article_file = "../data/set1/a1.txt"
     article_file = sys.argv[1]
-    processor = StanzaProcessor(file=article_file)
-    processor.sentence_segmentation()
-    # processor.process()
-    article = processor.sentences
+    article = open(article_file).read()
+    sentences = nltk.sent_tokenize(article)
     # print(article)
 
     # question_file = "../test_questions.txt"
@@ -118,5 +116,5 @@ if __name__ == "__main__":
             count += 1
             line = line.replace("?", "") # delete question mark
             questions.append(line.strip())
-    answer = Answer(article, questions)
+    answer = Answer(sentences, questions)
     answer.generate()
