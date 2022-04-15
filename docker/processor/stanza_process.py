@@ -9,11 +9,11 @@ stanza_logger.disabled = True
 # xpos: https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
 # con: http://surdeanu.cs.arizona.edu//mihai/teaching/ista555-fall13/readings/PennTreebankConstituents.html
 class StanzaProcessor:
-    def __init__(self, article=None, sentence=None):
-        if article is not None:
-            self.article = open(article).read()
-        elif sentence is not None:
-            self.article = sentence
+    def __init__(self, file=None, raw=None):
+        if file is not None:
+            self.article = open(file).read()
+        elif raw is not None:
+            self.article = raw
         # https://stanfordnlp.github.io/stanza/ner.html
         self.stanza = stanza.Pipeline(lang='en', processors='tokenize,ner,pos,lemma,depparse,constituency')
     
@@ -50,7 +50,7 @@ class StanzaProcessor:
 
 
 if __name__ == '__main__':
-    article = sys.argv[1]
-    aa = StanzaProcessor(article)
+    file = sys.argv[1]
+    aa = StanzaProcessor(file)
     aa.process()
     aa.print_con_parse()

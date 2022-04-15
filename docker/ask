@@ -8,12 +8,12 @@ from string import punctuation
 import spacy
 
 class Ask:
-    def __init__(self, article, n):
+    def __init__(self, file, n):
         self.n = n
         self.questions = []
-        article = open(article).read()
-        article = self.pronoun_coref(article)
-        stanza = StanzaProcessor(sentence=article).process()
+        raw = open(file).read()
+        raw = self.pronoun_coref(raw)
+        stanza = StanzaProcessor(raw=raw).process()
         self.source = stanza
 
     # https://stackoverflow.com/questions/64284835/replace-personal-pronoun-with-previous-person-mentioned-noisy-coref
@@ -56,7 +56,7 @@ class Ask:
                 print(self.questions[i])
     
 if __name__ == '__main__':
-    article = sys.argv[1]
+    file = sys.argv[1]
     n = int(sys.argv[2])
-    ask = Ask(article, n)
+    ask = Ask(file, n)
     ask.generate()
