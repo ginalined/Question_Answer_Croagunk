@@ -54,7 +54,6 @@ LOWER = [
     "IN",
     "PRP",
     "PRP$",
-    "JJ",
     "JJR",
     "JJS",
 ]

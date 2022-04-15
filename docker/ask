@@ -24,14 +24,14 @@ class Ask:
         doc = nlp(text)
         pronouns = [(tok, tok.i) for tok in doc if (tok.tag_ == "PRP")]
         names = [(ent.text, ent[0].i) for ent in doc.ents if ent.label_ == 'PERSON']
-        # possessive = [(tok, tok.i) for tok in doc if (tok.tag_ == "PRP$")]
-        # poss_names = []
-        # for ent in doc.ents:
-        #     if ent.label_ == 'PERSON':
-        #         poss = ent.text + "'s"
-        #         if ent.text[-1] == 's':
-        #             poss = ent.text + "'"
-        #         poss_names.append((poss, ent[0].i))
+        possessive = [(tok, tok.i) for tok in doc if (tok.tag_ == "PRP$")]
+        poss_names = []
+        for ent in doc.ents:
+            if ent.label_ == 'PERSON':
+                poss = ent.text + "'s"
+                if ent.text[-1] == 's':
+                    poss = ent.text + "'"
+                poss_names.append((poss, ent[0].i))
 
         doc = [tok.text_with_ws for tok in doc]
         for p in pronouns:
@@ -45,16 +45,16 @@ class Ask:
                     replace = replace + ' '
                 doc[p[1]] = replace
         
-        # for p in possessive:
-        #     replace = max(filter(lambda x: x[1] < p[1], poss_names),
-        #                 key=lambda x: x[1], default=False)
-        #     if replace:
-        #         replace = replace[0]
-        #         if doc[p[1] - 1] in punctuation:
-        #             replace = ' ' + replace
-        #         if doc[p[1] + 1] not in punctuation:
-        #             replace = replace + ' '
-        #         doc[p[1]] = replace
+        for p in possessive:
+            replace = max(filter(lambda x: x[1] < p[1], poss_names),
+                        key=lambda x: x[1], default=False)
+            if replace:
+                replace = replace[0]
+                if doc[p[1] - 1] in punctuation:
+                    replace = ' ' + replace
+                if doc[p[1] + 1] not in punctuation:
+                    replace = replace + ' '
+                doc[p[1]] = replace
         
         doc = ''.join(doc)
         return doc
