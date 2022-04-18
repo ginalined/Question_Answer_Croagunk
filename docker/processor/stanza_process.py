@@ -9,6 +9,8 @@ stanza_logger.disabled = True
 
 # xpos: https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
 # con: http://surdeanu.cs.arizona.edu//mihai/teaching/ista555-fall13/readings/PennTreebankConstituents.html
+
+
 class StanzaProcessor:
     def __init__(self, file=None, raw=None):
         if file is not None:
@@ -25,13 +27,20 @@ class StanzaProcessor:
         self.sentences = nltk.sent_tokenize(self.article)
         return self.sentences
 
+
     def process(self):
-        self.article = "".join(
-            "{}.\n".format(item)
-            if (item and item[-1] not in "!?.,-")
-            else "{}\n".format(item)
-            for item in self.article.split("\n")
-        )
+        
+        def filter_not_sentence(sent):
+            return sent and sent[-1] in "!?.,-"
+        #because the sentece with no ending . has a large possibility to not be sentence. 
+        self.article = "\n".join(list(filter(filter_not_sentence, self.article.split("\n"))))
+       # self.article = [item for item in self.article.split("\n") if (item[-1] in "!?.,-") ]
+        # self.article = "".join(
+        #     "{}.\n".format(item)
+        #     if (item and item[-1] not in "!?.,-")
+        #     else "{}\n".format(item)
+        #     for item in self.article.split("\n")
+        # )
         self.processed_article = self.stanza(self.article)
         return self.processed_article
 

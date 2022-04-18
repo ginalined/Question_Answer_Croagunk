@@ -15,6 +15,7 @@ class Ask:
         raw = open(file).read()
         raw = self.pronoun_coref(raw)
         stanza = StanzaProcessor(raw=raw).process()
+        
         self.source = stanza
 
     # coreference resolution
@@ -61,15 +62,16 @@ class Ask:
         return doc
     
     def generate(self):
-        yesno = YesNoQuestion(self.source, self.n)
-        yesno.ask()
-        self.questions.extend(yesno.questions)
+        #yesno = YesNoQuestion(self.source, self.n)
+        #yesno.ask()
+        #self.questions.extend(yesno.questions)
 
         wh = WhQuestion(self.source, self.n)
         wh.ask()
         self.questions.extend(wh.questions)
-
-        self.rank_and_print_questions()
+        for q in self.questions:
+            print(q)
+        #self.rank_and_print_questions()
     
     def rank_and_print_questions(self):
         # rank questions using ppl score before printing

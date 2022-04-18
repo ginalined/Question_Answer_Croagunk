@@ -14,6 +14,124 @@ stanza_logger.disabled = True
 conjunctions = ["because"]
 
 
+AUX_VERBS = [
+    "am",
+    "is",
+    "are",
+    "was",
+    "were",
+    "being",
+    "been",
+    "be",
+    "has",
+    "have",
+    "had",
+    "did",
+    "do",
+    "does",
+    "shall",
+    "will",
+    "would",
+    "should",
+    "shall",
+    "may",
+    "might",
+    "must",
+    "can",
+    "could",
+    "need",
+    "dare",
+]
+SPACE_AFTER = [
+    "}",
+    ")",
+    "]",
+    ">",
+    ".",
+    ",",
+    ";",
+    ":",
+    "'s",
+]
+SPACE_BEFORE = [
+    "{",
+    "(",
+    "[",
+    "<",
+]
+NO_SPACE = ["-", "–"]
+# Determiner or Personal pronoun or Preposition or subordinating conjunction
+DEPS = ["DT", "IN", "PRP", "PRP$"]
+LOWER = [
+    "DT",
+    "IN",
+    "PRP",
+    "PRP$",
+    "JJR",
+    "JJS",
+]
+LEADING_VERBS = {
+    "VBP": "do",
+    "VBZ": "does",
+    "VBD": "did",
+}
+
+
+class Process:
+    @staticmethod
+    def find_top_level_cons(const):
+        res = []
+        for x in const.children[0].children:
+            if len(x.label) == 0 or not x.label[0].isalpha():
+                continue
+            res.append([x.label, Process.get_leaf_string(x)[0]])
+        # if res == ['NP', 'ADVP', 'VP']:
+        #res = [[x.label, ] for x in const.children[0].children]
+
+            # print(Process.get_leaf_string(const.children[0].children)[1])
+        return res
+        #print(x.label, Process.get_leaf_string(x)[0])
+        #print([[x.label, Process.get_leaf_string(x)[0]] for x in const.children[0].children])
+
+    @staticmethod
+    def collect_leaf_nodes(node, leafs, lower=False):
+        if node is not None:
+            if not hasattr(node, "children") or len(node.children) == 0:
+                text = str(node)
+                if lower:
+                    text = text.lower()
+                leafs.append(text)
+            else:
+                for n in node.children:
+                    if node.label in LOWER:
+                        Process.collect_leaf_nodes(n, leafs, lower=True)
+                    else:
+                        Process.collect_leaf_nodes(n, leafs, lower=False)
+
+    @staticmethod
+    def get_leaf_string(root, skip=None):
+        leafs = []
+        Process.collect_leaf_nodes(root, leafs)
+        text = ""
+        no_space = ""
+        for leaf in leafs:
+            if leaf == skip:
+                continue
+            if leaf in NO_SPACE:
+                no_space = leaf
+            elif leaf[-1] in NO_SPACE or leaf in SPACE_BEFORE:
+                no_space = " " + leaf
+            elif leaf in SPACE_AFTER or leaf[:1] in NO_SPACE or leaf[-1] == "'":
+                text += leaf
+            else:
+                if no_space != "":
+                    text += no_space + leaf
+                    no_space = ""
+                else:
+                    text += " " + leaf
+        return text.strip(), leafs
+
+
 class WhQuestion:
     def __init__(self, source, n):
         self.stanza = stanza.Pipeline(
@@ -34,7 +152,13 @@ class WhQuestion:
     def ask(self):
         self.questions = self.generate_question()
 
+    def preprocess_sentence(self, sentence):
+        pass
+
     def generate_who_question(self, sentence):
+        pass
+
+    def generate_when_question(self, sentence):
         pass
 
     def print_dep_parse(self):
@@ -73,7 +197,7 @@ class WhQuestion:
         return the id of the verb word
         """
 
-    def find_verb(self, sentence) -> int:
+    def find_verb(self, sentence):
 
         replaced_aux = "do"
 
@@ -94,6 +218,19 @@ class WhQuestion:
             replaced_aux = "does"
 
         return min_dist_verb[0], replaced_aux
+
+    def find_aux(self, w):
+    
+        replaced_aux = "do"
+
+        if w.pos == "AUX":
+            return ""
+        elif w.xpos == "VBD":
+            replaced_aux = "did"
+        elif w.xpos == "VBZ":
+            replaced_aux = "does"
+
+        return  replaced_aux
 
     def retrive_text(self, node) -> str:
         if len(node.children) == 0:
@@ -118,13 +255,14 @@ class WhQuestion:
 
                 # sentences.append(temp_article.sentences[0])
                 sentence_count += 1
+
         if sentence_count <= 1:
             return [sentence]
         return sentences
 
-    def clean_output(self, output_text, main_verb):
-        output_text[main_verb - 1] = self.word_map[main_verb].lemma
-        output_text[0] = self.word_map[1].lemma
+    def clean_output(self, output_text):
+        # output_text[main_verb - 1] = self.word_map[main_verb].lemma
+        # output_text[0] = self.word_map[1].lemma
         output_text = list(filter(lambda x: x != "", output_text))
         output_text = " ".join(output_text[:-1]).strip()
         output_text = output_text.replace(" ,", ",")
@@ -144,7 +282,7 @@ class WhQuestion:
                 if "," not in output_text:
                     continue
                 comma_index = output_text.index(",")
-                output_text = output_text[comma_index + 1 :]
+                output_text = output_text[comma_index + 1:]
             else:
                 output_text = output_text[:conj_index]
             output_text = self.clean_output(output_text, verb)
@@ -155,7 +293,7 @@ class WhQuestion:
         return who when where
         """
 
-    def get_question_type(self, entity) -> str:
+    def get_question_type(self, entity):
         if entity.type == "DATE":
             return "When"
         elif entity.type == "TIME":
@@ -164,26 +302,109 @@ class WhQuestion:
             return "Where"
         elif entity.type == "PERSON":
             return "Who"
+        elif entity.type == "ORG":
+            return "What organization"
         else:
             return "What"
 
+    def ask_by_np_vp(self, sentence, labels):
+        questions = []
+        np_text, vp_text = "", ""
+        bg_text = False
+        for tag, text in labels:
+            if tag == "SBAR":
+                bg_text = True
+            if tag == "NP":
+                np_text = text
+            elif tag == "VP":
+                vp_text = text
+                break
+        
+                
+        entities = sentence.entities
+        
+        orig_verb = vp_text.split(" ")[0]
+        lemma_verb = ""
+        verb_index = 0
+        for i,s in enumerate(sentence.words):
+            if s.text == orig_verb:
+               lemma_verb = s.lemma
+               verb_index = i
+               
+        
+        entities = list(filter(lambda x: x.text in np_text, entities))
+        question_starter = "What"
+        if entities:
+            question_starter = self.get_question_type(entities[0])
+        
+        if lemma_verb in ["say", "think", "consider", "suggest", "ask"]:
+            question_text = "Who"
+        
+        question_text = question_starter + " " + vp_text + "?"
+        questions.append(question_text)
+        
+        
+        if bg_text:
+            question_word_text = [w.text for w in sentence.words]
+            aux = ""
+            aux = self.find_aux(sentence.words[verb_index])
+            if not aux:
+                aux = orig_verb
+                question_word_text[i] = ""
+            else:
+                question_word_text[i] = lemma_verb
+                    
+            questions.append(self.format_question("When",self.clean_output(question_word_text), aux))
+         
+        return questions
+
     def generate_question(self):
+        import collections
+        all_questions = []
+
+        all_struct = collections.Counter()
+        for complex_sentence in self.source.sentences:
+            constituency = complex_sentence.constituency
+            
+            simple_sentences = self.split_sentence(
+                complex_sentence, constituency)
+
+            for sentence in simple_sentences:
+                struct = sentence.constituency
+                labels = Process.find_top_level_cons(struct)
+                label_text = tuple([x[0] for x in labels])
+                
+            
+                if label_text in [('NP', 'VP'), ('NP', 'ADVP', 'VP'), ('NP', 'ADJP', 'VP'), ('SBAR', 'NP', 'VP')]:
+                    all_questions += self.ask_by_np_vp(sentence, labels)
+
+                # print(labels)
+                #all_struct[tuple(labels)] += 1
+        # print(all_struct)
+                # print(sentence.dependencies)
+                # print(sentence)
+
+        return all_questions
+
+    def generate_question1(self):
 
         questions = []
 
         # self.print_dep_parse()
         for complex_sentence in self.source.sentences:
-            if len(questions) >= self.n:
-                return questions
 
             constituency = complex_sentence.constituency
+            print("-----sentence info---------")
+            Process.find_top_level_cons(constituency)
 
-            simple_sentences = self.split_sentence(complex_sentence, constituency)
+            # print(complex_sentence.text)
 
+            print("-----end ---------\n")
+            simple_sentences = self.split_sentence(
+                complex_sentence, constituency)
             for sentence in simple_sentences:
 
                 try:
-
                     sentence_text = sentence.text
 
                     self.word_map = collections.defaultdict()
@@ -239,7 +460,7 @@ class WhQuestion:
                             if sentence_text.startswith(entity.text):
                                 questions.append(
                                     question_starter
-                                    + sentence_text[len(entity.text) : -1]
+                                    + sentence_text[len(entity.text): -1]
                                     + "?"
                                 )
 
@@ -265,7 +486,8 @@ class WhQuestion:
                                 if post_word.xpos == ",":
                                     output_text[post_index - 1] = ""
 
-                            output_text = self.clean_output(output_text, main_verb)
+                            output_text = self.clean_output(
+                                output_text, main_verb)
 
                             question = self.format_question(
                                 question_starter, output_text, main_aux
@@ -276,8 +498,3 @@ class WhQuestion:
                     continue
 
         return questions
-
-
-# my_question = WhQuestion("hello")
-
-# print(my_question.generate_question())
