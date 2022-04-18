@@ -1,94 +1,40 @@
 #!/usr/bin/env python3
 # -*- coding:utf8 -*-
 import sys
+from processor.stanza_process import StanzaProcessor
 from question.wh_question import WhQuestion
 from question.yes_no_question import YesNoQuestion
-from processor.stanza_process import StanzaProcessor
-from processor.nltk_process import get_score
-from string import punctuation
-import spacy
-
+import random
 class Ask:
-    def __init__(self, file, n):
+    def __init__(self, article, n):
         self.n = n
         self.questions = []
-        raw = open(file).read()
-        raw = self.pronoun_coref(raw)
-        stanza = StanzaProcessor(raw=raw).process()
-        
-        self.source = stanza
-
-    # coreference resolution
-    # possessive replacement is working, but entity is wrong
-    # https://stackoverflow.com/questions/64284835/replace-personal-pronoun-with-previous-person-mentioned-noisy-coref
-    def pronoun_coref(self, text):
-        nlp = spacy.load('en_core_web_sm')
-        doc = nlp(text)
-        pronouns = [(tok, tok.i) for tok in doc if (tok.tag_ == "PRP")]
-        names = [(ent.text, ent[0].i) for ent in doc.ents if ent.label_ == 'PERSON']
-        possessive = [(tok, tok.i) for tok in doc if (tok.tag_ == "PRP$")]
-        poss_names = []
-        for ent in doc.ents:
-            if ent.label_ == 'PERSON':
-                poss = ent.text + "'s"
-                if ent.text[-1] == 's':
-                    poss = ent.text + "'"
-                poss_names.append((poss, ent[0].i))
-
-        doc = [tok.text_with_ws for tok in doc]
-        for p in pronouns:
-            replace = max(filter(lambda x: x[1] < p[1], names),
-                        key=lambda x: x[1], default=False)
-            if replace:
-                replace = replace[0]
-                if doc[p[1] - 1] in punctuation:
-                    replace = ' ' + replace
-                if doc[p[1] + 1] not in punctuation:
-                    replace = replace + ' '
-                doc[p[1]] = replace
-        
-        for p in possessive:
-            replace = max(filter(lambda x: x[1] < p[1], poss_names),
-                        key=lambda x: x[1], default=False)
-            if replace:
-                replace = replace[0]
-                if doc[p[1] - 1] in punctuation:
-                    replace = ' ' + replace
-                if doc[p[1] + 1] not in punctuation:
-                    replace = replace + ' '
-                doc[p[1]] = replace
-        
-        doc = ''.join(doc)
-        return doc
+        self.processor = StanzaProcessor(article=article)
+        self.processor.process()
     
     def generate(self):
-        #yesno = YesNoQuestion(self.source, self.n)
-        #yesno.ask()
-        #self.questions.extend(yesno.questions)
-
-        wh = WhQuestion(self.source, self.n)
-        wh.ask()
+        yesno = YesNoQuestion(self.processor.processed_article)
+        wh = WhQuestion(self.processor.processed_article)
+        yesno.ask()
+        wh.ask(self.n)
+        self.questions.extend(yesno.questions)
         self.questions.extend(wh.questions)
-        for q in self.questions:
-            print(q)
-        #self.rank_and_print_questions()
-    
-    def rank_and_print_questions(self):
-        # rank questions using ppl score before printing
-        rank = {}
-        for question in self.questions:
-            rank[question] = get_score(question)
-            
-        sort_rank = [k for k, _ in sorted(rank.items(), key=lambda item: item[1])]
+
+        self.rank_questions()
         
         for i in range(0, self.n):
-            if i >= len(rank):
+            if i >= len(self.questions):
                 print("No more question")
             else:
-                print(sort_rank[i])
+                print(self.questions[i])
+    
+    def rank_questions(self):
+        random.shuffle(self.questions)
+        # TODO: rank questions before printing
+        return
     
 if __name__ == '__main__':
-    file = sys.argv[1]
+    article = sys.argv[1]
     n = int(sys.argv[2])
-    ask = Ask(file, n)
+    ask = Ask(article, n)
     ask.generate()
