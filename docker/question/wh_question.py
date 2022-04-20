@@ -385,22 +385,25 @@ class WhQuestion:
         import collections
         c = collections.Counter()
         
-        for i,sentences in enumerate(self.source):    
-            if len(all_questions) >= 3 * self.n:
-                return all_questions
-            sentence = sentences.sentences[0]
- 
-            labels = Process.find_top_level_cons(sentence.constituency)
-            label_text = tuple([x[0] for x in labels])
-            c[label_text] += 1
+        for i,sentences in enumerate(self.source):   
+            try: 
+                if len(all_questions) >= 3 * self.n:
+                    return all_questions
+                sentence = sentences.sentences[0]
+    
+                labels = Process.find_top_level_cons(sentence.constituency)
+                label_text = tuple([x[0] for x in labels])
+                c[label_text] += 1
 
-            if label_text in [('NP', 'VP'), ('NP', 'ADVP', 'VP'), ('NP', 'ADJP', 'VP'), ('SBAR', 'NP', 'VP')]:
-                all_questions += self.ask_by_np_vp(sentence, labels)
+                if label_text in [('NP', 'VP'), ('NP', 'ADVP', 'VP'), ('NP', 'ADJP', 'VP'), ('SBAR', 'NP', 'VP')]:
+                    all_questions += self.ask_by_np_vp(sentence, labels)
+                    
                 
-            
-                
-            if label_text and label_text == ('PP', 'NP', 'VP'):
-                all_questions += self.ask_by_pp(sentence, labels)
+                    
+                if label_text and label_text == ('PP', 'NP', 'VP'):
+                    all_questions += self.ask_by_pp(sentence, labels)
+            except:
+                continue
         
         for i, question in enumerate(all_questions):
             all_questions[i] = question.replace(" n't ", "n't ")

@@ -112,65 +112,68 @@ class YesNoQuestion:
                         self._collect_leaf_nodes(n, leafs, lower=False)
 
     def dep(self):
-        for i,sentences in enumerate(self.source):    
-            sent = sentences.sentences[0]
-            if len(self.questions) >= 2 * self.n:
-                return
-            question = ""
-            np = ""
-            aux = ""
-            for child in sent.constituency.children[0].children:
-                # noun phrase
-                if child.label == "NP":
-                    for grandchild in child.children:
-                        con = grandchild.label
-                        text, _ = self.get_leaf_string(grandchild)
-                        if con in DEPS:
-                            np += text.lower()
-                            if np == "i":
-                                np = "I"
-                        else:
-                            np += " " + text
-                    np += " "
-                # verb phrase
-                elif child.label == "VP":
-                    for i in range(len(child.children)):
-                        grandchild = child.children[i]
-                        con = grandchild.label
-                        leading = ""
-                        leading_arr = []
-                        need_lemma = False
-                        aux, arr = self.get_leaf_string(grandchild)
-                        if con == "MD" or arr[0] in AUX_VERBS:
-                            leading = aux
-                            leading_arr = arr
-                        elif con in LEADING_VERBS.keys():
-                            leading = LEADING_VERBS[con]
-                            need_lemma = True
-                        else:
-                            continue
-                        if len(leading) != 0 and len(np.strip()) != 0:
-                            if len(leading_arr) > 1:
-                                leading_arr[0] = leading_arr[0] + " " + np.strip()
-                                question = " ".join(leading_arr)
+        for i,sentences in enumerate(self.source):   
+            try: 
+                sent = sentences.sentences[0]
+                if len(self.questions) >= 2 * self.n:
+                    return
+                question = ""
+                np = ""
+                aux = ""
+                for child in sent.constituency.children[0].children:
+                    # noun phrase
+                    if child.label == "NP":
+                        for grandchild in child.children:
+                            con = grandchild.label
+                            text, _ = self.get_leaf_string(grandchild)
+                            if con in DEPS:
+                                np += text.lower()
+                                if np == "i":
+                                    np = "I"
                             else:
-                                question = leading + " " + np.strip()
-                            if need_lemma:
-                                for j in range(i, len(child.children)):
-                                    replace = child.children[j]
-                                    if replace.label == con:
-                                        word = replace.children[0]
-                                        lemma = WordNetLemmatizer().lemmatize(
-                                            str(word), wordnet.VERB
-                                        )
-                                        child.children[j] = lemma
+                                np += " " + text
+                        np += " "
+                    # verb phrase
+                    elif child.label == "VP":
+                        for i in range(len(child.children)):
+                            grandchild = child.children[i]
+                            con = grandchild.label
+                            leading = ""
+                            leading_arr = []
+                            need_lemma = False
+                            aux, arr = self.get_leaf_string(grandchild)
+                            if con == "MD" or arr[0] in AUX_VERBS:
+                                leading = aux
+                                leading_arr = arr
+                            elif con in LEADING_VERBS.keys():
+                                leading = LEADING_VERBS[con]
+                                need_lemma = True
+                            else:
+                                continue
+                            if len(leading) != 0 and len(np.strip()) != 0:
+                                if len(leading_arr) > 1:
+                                    leading_arr[0] = leading_arr[0] + " " + np.strip()
+                                    question = " ".join(leading_arr)
+                                else:
+                                    question = leading + " " + np.strip()
+                                if need_lemma:
+                                    for j in range(i, len(child.children)):
+                                        replace = child.children[j]
+                                        if replace.label == con:
+                                            word = replace.children[0]
+                                            lemma = WordNetLemmatizer().lemmatize(
+                                                str(word), wordnet.VERB
+                                            )
+                                            child.children[j] = lemma
 
-                            break
-                    if len(question) != 0:
-                        if len(leading_arr) <= 1:
-                            text, _ = self.get_leaf_string(child, skip=aux)
-                            question += " " + text
-                        question += "?"
-                        question = question.replace(".", "").strip()
-                        question = question[:1].upper() + question[1:]  # cap first char
-                        self.questions.append(question)
+                                break
+                        if len(question) != 0:
+                            if len(leading_arr) <= 1:
+                                text, _ = self.get_leaf_string(child, skip=aux)
+                                question += " " + text
+                            question += "?"
+                            question = question.replace(".", "").strip()
+                            question = question[:1].upper() + question[1:]  # cap first char
+                            self.questions.append(question)
+            except:
+                continue

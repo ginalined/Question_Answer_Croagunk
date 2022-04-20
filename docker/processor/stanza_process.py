@@ -43,7 +43,13 @@ class StanzaProcessor:
         # )
         
         self.sentences = self.sentence_segmentation()
-        self.processed_article = [self.stanza(sent) for sent in self.sentences]
+        self.processed_article = []
+        for sent in self.sentences:
+            try:
+                temp_nlp = self.stanza(sent)
+                self.processed_article.append(temp_nlp)
+            except:
+                continue
         return self.processed_article
 
     def print_con_parse(self):
