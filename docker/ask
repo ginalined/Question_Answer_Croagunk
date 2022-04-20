@@ -7,6 +7,7 @@ from processor.stanza_process import StanzaProcessor
 from processor.nltk_process import get_score
 from string import punctuation
 import spacy
+import time
 
 class Ask:
     def __init__(self, file, n):
@@ -70,6 +71,8 @@ class Ask:
         self.questions.extend(wh.questions)
 
         self.rank_and_print_questions()
+        
+
     
     def rank_and_print_questions(self):
         # rank questions using ppl score before printing
@@ -86,7 +89,10 @@ class Ask:
                 print(sort_rank[i])
     
 if __name__ == '__main__':
+    now = time.time()
     file = sys.argv[1]
     n = int(sys.argv[2])
     ask = Ask(file, n)
     ask.generate()
+    #print(time.time()-now)
+    

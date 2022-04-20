@@ -1,0 +1,203 @@
+Counter({('NP', 'VP'): 143, ('NP', 'ADVP', 'VP'): 31, ('PP', 'NP', 'VP'): 27, ('S', 'CC', 'S'): 18, ('NP', 'NP'): 16, ('SBAR', 'NP', 'VP'): 14, ('ADVP', 'NP', 'VP'): 13, ('NP', 'PP'): 8, ('S', 'S'): 8, ('S', 'NP', 'VP'): 6, ('PP', 'S', 'CC', 'S'): 5, ('NP', 'S'): 4, ('NP', 'NP', 'VP'): 3, ('S', 'VP'): 2, ('PP', 'VP', 'NP'): 2, ('PP', 'PP', 'NP', 'VP'): 2, ('SBAR', 'ADVP', 'NP', 'VP'): 2, ('ADVP', 'VP', 'VP', 'NP'): 2, ('S', 'S', 'CC', 'S'): 2, ('NP', 'PP', 'PP'): 1, ('VP',): 1, ('CC', 'SBAR', 'NP', 'VP'): 1, ('S', 'NP', 'ADVP', 'VP'): 1, ('NP', 'SBAR'): 1, ('NP', 'ADVP', 'ADVP', 'VP'): 1, ('NP', 'S', 'VP'): 1, ('SBAR', 'PP', 'NP', 'ADVP', 'VP'): 1, ('ADVP', 'PP', 'NP', 'VP'): 1, ('SBAR', 'VP'): 1, ('SBAR', 'S'): 1, ('NP', 'CC', 'NP'): 1, ('NP', 'SBAR', 'PP'): 1, ('S', 'ADVP', 'NP', 'VP'): 1, ('PP', 'VP'): 1, ('ADVP', 'VP', 'VP', 'NP', 'SBAR', 'NP'): 1, ('CC', 'NP', 'VP'): 1, ('S', 'CC', 'S', 'PP'): 1, ('NP', 'PP', 'VP'): 1, ('S', 'S', 'S'): 1, ('PP', 'SBAR', 'NP', 'VP'): 1, ('SBAR', 'NP', 'NP'): 1, ('NP', 'NP', 'PP'): 1, ('PP', 'NP', 'NP', 'VP'): 1, ('S', 'SBAR'): 1, ('S', 'VP', 'NP'): 1})
+What return to the Shire where Sam marries Rosie Cotton?
+What meet Lord Denethor, steward of Gondor, and Boromir's father?
+What leaves Frodo to get killed by the giant spider Shelob?
+What declares Boromir's service to Denethor after Boromir died protecting Boromir?
+What deduces Sauron will attack Gondor's capital Minas Tirith, riding there with Pippin?
+What arrives with the Army of the Dead, quickly wiping out the Orcs and winning the battle?
+What holds the record for the largest number of Academy Awards won with Ben-Hur (1959) and Titanic (1997)?
+What begin climbing an enormous stairway carved in the cliff face that would take Faramir to Mordor?
+What received rave reviews and universal acclaim, and became one of the greatest critical and box-office successes of all time?
+What allows the ghosts to pass on as Éowyn and the other wounded are tended to?
+When do Meanwhile, Frodo Baggins and Samwise Gamgee are led by Gollum to Minas Morgul where Samwise Gamgee witness the fortress ' lord, the Witch-king of Angmar leading an Orc army to drive Denethor 's youngest son Faramir and Faramir 's men from?
+Who flies in with eagles to rescue the Hobbits, who later reawaken in Minas Tirith and reunite with the surviving Fellowship members?
+What voices Treebeard: the ent leader?
+What is paralysed by Shelob?
+When is Denethor falls into madness when Gimli believes a wounded Faramir is dead from a futile effort to retake Osgiliath, leaving Gandalf to command the city defences against the Orc army under?
+What was the highest-grossing film of 2003 and, by the end of Harry Potter's theatrical run, the second highest-grossing film in history?
+Who dies of Merry's wounds?
+When does Though Théoden 's niece Éowyn, having posed as a male soldier, battles and slays the Witch - King with Merry 's help, Théoden dies of Merry 's wounds?
+What retrieves Saruman's palantír which is viewed by a curious Pippin, allowing Sauron to attack the Hobbit's mind?
+When do Aragorn arrives with the Army of the Dead, quickly wiping out the Orcs and winning the?
+What is the third and final instalment in the Lord of the Rings series, following the Fellowship of the Ring (2001) and the Two Towers (2002)?
+What are both destroyed, causing an eruption that consumes Mordor and wipes out most of the fleeing Orcs?
+When do Later, Aragorn and Merry 's friends agree to lead a united front to match towards the Black Gate as a distraction so Frodo and Sam get to Mount?
+What is crowned King of Gondor and taking Arwen as Arwen's queen before all present at Arwen's coronation bowing before Frodo and the other Hobbits?
+What gives Aragorn the sword Andúril, Isildur's sword Narsil reforged, so Narsil can reclaim Narsil's birthright while gaining reinforcements from the Dead Men of Dunharrow?
+What leads Aragorn, Legolas, Gimli, and King Théoden to Isengard where King Théoden reunite with Merry and Pippin, who helped the Ents destroy Saruman's forces?
+What plays Gothmog: an Orc commander?
+What acting as a general at the Siege of Gondor?
+What falls into madness when Gimli believes a wounded Faramir is dead from a futile effort to retake Osgiliath, leaving Gandalf to command the city defences against the Orc army under Gothmog?
+What takes Frodo's sword Sting and the Ring for safekeeping, believing Sting to be dead, before Frodo's body is taken by Orcs to Cirith Ungol?
+When do Viggo Mortensen as Aragorn : a Dúnedain ranger with claims to the throne of?
+What included the awards for best Picture, the first and only time a fantasy film has done so; Oscar was also the second sequel to win a best Picture Oscar (following the Godfather Part II) and best Director?
+What has another unofficial cameo, as Sam's hand stepping into view when Sam confronts Shelob?
+What was a more tragic character in the book?
+What cameos as a Ranger in Osgiliath, while in the Extended Edition Howard Shore appears as a celebrating soldier at Edoras?
+What is approached by Elrond who tells Elrond that Arwen is dying after Arwen returned to Riverdell upon seeing a vision of Arwen's son that convinced Arwen to stay on Middle Earth?
+When do Bruce Spence as The Mouth of Sauron : Sauron 's ambassador at the Black?
+What was only the second film to gross $ 1 billion worldwide ($ 1.12 billion), becoming the highest grossing film released by New Line Cinema, as well as the biggest financial success for Time Warner in general, until Harry Potter and the Deathly Hallows – Part 2 ($ 1.31 billion) surpassed?
+Who cameo as Gondorian extras, while Christian Rivers played a Gondorian soldier guarding the Beacon Pippin lights, and is later seen wounded?
+Who has Denethor jump off the Citadel in addition to burning Jackson on the Pyre, one of the earliest changes?
+What is also excised?
+What is moved into the Isengard visit because of the cutting of the Scouring of the Shire?
+What are replaced by Elrond in the film, instead delivering Andúril, and then returning to Rivendell?
+What are also cameos from Peter Jackson, Richard Taylor, Gino Acevedo, Rick Porras and Andrew Lesnie on the Corsair ship, although all of Andrew Lesnie but Jackson appear only in the Extended Edition?
+What altered the circumstances of Théoden's death; Elrond's death speech, in which Elrond names?
+What lands on a water wheel and drops the palantír?
+What hints at Faramir's use of the palantír which drives Faramir mad, information revealed in the Pyre scene, which is more violent than the book?
+What enters Shelob's lair alone in the film, whereas in the book Gollum and Sam entered together?
+What discover a ruined and defaced statue at the Crossroads?
+Who comforts Pippin with a description of the Undying Lands, which is a descriptive passage in the book's final chapter?
+When does When hope seems lost, Gandalf comforts Pippin with a description of the Undying Lands, which is a descriptive passage in the book 's final chapter?
+What is extended, with the party containing a drinking game between Legolas and Gimli?
+What is heavily extended?
+What takes place while Gandalf journeys to save Faramir in the Extended Edition, during which Gandalf has Faramir's staff broken in the film (but not in the book)?
+Who are in fact spoken by Éomer in the book upon Éomer's realisation that Éowyn is also apparently dead?
+What found?
+What focuses on Dol Amroth's overwhelming grief over the death of Boromir as to ignore Sauron's threat (in the book Boromir already lights the beacons), and is driven over the edge by Faramir's injury?
+What heals Éomer and Éomer falls in love with Faramir?
+Who warns Gollum about betrayal, eventually setting up the separation?
+When do This was done to make the scene more horrific with Frodo being alone, and Sam 's rescue at the last minute more?
+What is streamlined so as not to include the Scouring of the Shire, which was always seen by the screenwriters as anti-climactic?
+What are extended?
+What enters the Great Hall and has a conversation with Éowyn about a dream Gimli had, about a great wave over a green countryside?
+What is a friendly chat between Pippin and Faramir which sets up Pippin's later attempts to rescue Faramir?
+What divide and fight smaller skirmishes in Anórien and Ithilien before the army (only a fraction of the full remaining strength of the nations of men) reach the Morannon?
+When do Jackson eventually realised Jackson ignored the point of Aragorn 's true bravery in distracting Sauron 's army against overwhelming odds, and a computer generated Troll was placed over footage of Sauron in the finished?
+What finds Éowyn on the field and mourns when Éomer thinks Éomer is dead?
+What was also rewritten for the film, as the writers felt Tolkien's original idea (Gollum simply slips and falls off) was anti-climactic?
+What is also the final confrontation between Gandalf and Saruman, in which Saruman is stabbed to death by Wormtongue, who is killed by Legolas in turn?
+What leads onto Aragorn attacking the Corsair ships, which includes a cameo by Peter Jackson as a character killed by Legolas?
+What chases Éowyn during the battle, and attempts to finish Faramir off before Faramir is killed by Aragorn and Gimli?
+What headed Weta, while Grant Major and Dan Hennah organised the planning and building respectively?
+What is a final line of dialogue in which Gollum admits Éomer lied about protecting Frodo?
+What sees a star through the clouds, symbolising hope whilst Frodo merely rests with a burn on Frodo's neck?
+What is unusual in that Éomer was, up until the release of Jackson's prequel trilogy?
+What (excluding pick up shoots)?
+What takes place in the book, but was added by the writers in believing that Gollum added drama and more complexity to the character of Frodo?
+What was built at Dry Creek Quarry, outside Wellington, from the Helm's Deep set?
+What introduces the enormous spider Shelob?
+What is a scene where Denethor confronts Minas Tirith for not taking the Ring, which includes Minas Tirith's vision of Boromir?
+When is Éomer also finds Éowyn on the field and mourns when Éomer thinks Éomer is?
+What is digitally revised for a nighttime environment to give the impression Merry has been searching for almost the entire day.?
+What contains major scenes that occurred in the middle portion of the novel the Two Towers but were not included in the film the Lord of the Rings: the Two Towers, such as Shelob and the palantír subplot, owing to Jackson's realigning events of the film to fit the timeline as described in the book's Appendices, rather than the main prose?
+Who are also diverted into the Orc march to the Black Gate and escape on a long journey, during which Sam throw away the last of Sam's gear?
+What were also four levels of streets with heraldic motifs for every house, as inspired by Siena?
+What took great joy in planning the sequence, being an arachnophobe Jackson?
+What was also the Citadel, the exterior of which was in the Stone Street Studios backlot, using forced perspective?
+What was inspired by sandstone and sculpted from the existing Caverns of Isengard set?
+What were shot in October?
+What became Minas Tirith's second, while the Hornburg exterior became that of the Extended Edition's scene where Gandalf confronts the Witch-king?
+What is designed to represent an evolution from the Númenóreans of the first film's prologue, with a simplified sea bird motif?
+What cuts out several supporting characters, such as: Halbarad, a friend of Aragorn's, who helps lead the Dúnedain, Beregond, a member of the Citadel Guard of Gondor, whom Pippin befriends, and Elladan and Elrohir, the twin sons of Elrond who deliver Aragorn's banner and accompany Elrond to the Pelennor Fields?
+What took place under multiple units across New Zealand, between 11 October 1999 and 22 December 2000, with pick up shoots for six weeks in 2003 before the film's release?
+What were in fact the last?
+What contains the withered White Tree, built from polystyrene by Brian Massey and the Greens Department with real branches, influenced by ancient and gnarled Lebanese olive trees?
+What was built as a few multiple levels that numerous camera takes would suggest a larger structure?
+What get more time in Mordor: the fight among the orcs in the tower of Cirith Ungol is longer, and after Sam rescues Frodo, a sequence reveals a surviving Uruk sneaking off with Frodo's mithril shirt?
+What was filmed in April at the Rangipo Desert, a former minefield?
+What included the 8 m tall Gate, with broken and unbroken versions, with a working opening and closing mechanism, with Minas Tirith's' engravings inspired by the Baptistry of San Giovanni?
+Who were designed by Howe, with the Morgul road using forced perspective into a bluescreened miniature?
+What were hired as extras while guides were on the lookout for unexploded mines?
+What were the Paths of the Dead across various locations, including Pinnacles?
+What headbutted the stunt team goodbye?
+What was also the new character of Gothmog?
+What ended on 27 June 2003?
+What have a Celtic influence, as well as lines and symmetry to reflect Jackson's morbid state, while Jackson's underground city is influenced by Petra?
+What has the most extensive list of re-shoots given for the trilogy?
+What was designed in 1999, with the body based on a tunnelweb spider and the head with numerous growths selected by Peter Jackson's children from one of many sculpts?
+What tried numerous takes of Boyd's entrance, stressing the word " weed " as Boyd smoked pipe-weed?
+What include the Corsairs, with an exotic, swarthy look, and the Grey Havens, Elven structures adapted to stone, with influence from J. M. W. Turner paintings?
+What continued for two months, and became an emotional time of farewells for the cast and crew?
+What was primarily designed by Alan Lee and John Howe, former Tolkien illustrators, and created by Weta Workshop, who handled all the trilogy's weapons, armour, miniatures, prosthetics and creatures, as well as the Art Department which built the sets?
+What brings into focus the Dead Men of Dunharrow and the evil Haradrim from the south of Middle-earth, men who ride the mûmakil?
+What was originally the second of two planned films under Miramax from January 1997 to August 1998, and more or less in Jackson's finished structure as the first film was to end with the Two Towers' Battle of Helm's Deep?
+What reunited with longtime collaborator Jamie Selkirk to edit the final film?
+What spent Christopher Lee's part of Christopher Lee's scene mostly alone, though McKellen and Hill arrived on the first day for a few lines to help?
+What was filmed in Twizel with 150 extras on horseback?
+What was finally completed on 12 November 2003?
+What were Aragorn escaping the Skull avalanche, and Frodo finishing Frodo's book?
+What re-shot scenes in and around Mount Doom, and Théoden's death, right after Bernard Hill was meant to wrap?
+What received various props associated with Frodo's characters, although John Rhys-Davies burned John Rhys-Davies' final Gimli prosthetic?
+What would, however, later reconcile upon Lee's casting in Jackson's Hobbit films?
+Who took Jackson's time to re-shoot Aragorn's coronation, rushed into a single day under second unit director Geoff Murphy on 21 December 2000?
+What has practical effects?
+What was the bluescreened reaction shot of the inhabitants of Minas Tirith bowing to Minas Tirith?
+When was This was a major new design addition for the film, as Jackson felt the Mordor Orcs were " pathetic " compared to the Uruk-hai of the second film after watching assembly cuts, and thus Weta created grotesque new " über Orcs " as antagonists for the audience to focus?
+What has more extensive use of computer-generated imagery, in contrast to the more extensive use of live action in the Battle of Helm's Deep in the second film?
+What contributed to the DVDs and was at the Copenhagen premiere, although on the other hand Lee says?
+What were highly influenced by African culture, until Philippa Boyens expressed concern over the possibility of offensiveness, so the finished characters instead bear influence from Kiribati, in terms of weaving armour from bamboo, and the Aztecs, in use of jewellery?
+What was shot during 2000, though Astin's coverage from Gollum's attempt to separate Frodo and Sam was filmed on 24 November 1999, when floods in Queenstown interrupted the focus on the Fellowship of the Ring?
+What had Gollum's mouth enlarged 200 % for unsettling effect?
+What inherited scenes originally planned to go into the second film, including the reforging of Narsil, Gollum's backstory, and Saruman's exit?
+What was shot in January 2000 with early scenes from the Fellowship of the Ring, with the exterior shot at a Matamata farm, while interior scenes shot at Stone Street Studios in Wellington, shared with the Grey Havens sequence?
+What spent the early part of the year searching for the right sounds?
+What contains 1,488 visual effect shots, nearly three times the number from the first film and almost twice that of the second?
+What created a digital version of the Barad-dûr during Gary Horsfield's Christmas break at home by Gary Horsfield, for the film's climax?
+What began in November 2002, with the completion of the 4½ hour assembly cut of the film that Annie Collins had been completing over 2001 and 2002, from 4-hour dailies?
+Who had a lock on 5 out of 10 reels, and had to churn out 3 reels in 3 weeks to help finish the film?
+What are several changes in the Battle of the Black Gate: Merry is not present there in the book, Pippin does not kill a troll as Pippin does in the novel, the eagles fight and defeat some of the mounted Nazgûl (while Frodo putting on the One Ring distracted the Nazgûl, who raced away to Mount Doom in the book before a confrontation could occur), and Aragorn kills the Mouth of Sauron in the extended edition of the film but not in the book?
+What began with Alan Lee and Mark Lewis compositing various photographs of New Zealand landscape to create the digital arena of the Pelennor Fields in November 2002?
+What finished on 15 November, after three months of non-stop work?
+What were filmed in the Wellington studio car park, with many parts of sets and blue-screens used to finish off scenes, which the design team had to work 24 hours to get the right sets ready for a particular day?
+What began at a new studio on 15 August, although unfinished building work caused some annoyances?
+What contribute to the soundtrack?
+What plays the flute as Frodo and Sam climb Mount Doom?
+What contributed to the film's music?
+What were also reflected off a plate of glass and into the camera for when Gandalf's horse Shadowfax kicks Denethor onto the pyre?
+What included various live-action shots of Riders for the Battle of the Pelennor Fields and a reaction shot of Serkis as Gollum finally realises Frodo intends to destroy the Ring, shot in Jackson's house?
+What was composed by Howard Shore, who previously composed the first two parts of the trilogy?
+What set an opening Wednesday record with $ 34.5 million?
+What performed Fran Walsh and also received songwriting credit?
+What was a major new design addition for the film, as Jackson felt the Mordor Orcs were " pathetic " compared to the Uruk-hai of the second film after watching assembly cuts, and thus Weta created grotesque new " über Orcs " as antagonists for the audience to focus on?
+What was Shelob's shriek, which in turn gave inspiration for Weta's animators, while the mûmakil is the beginning and end of a lion roar?
+What sings as Arwen has a vision of Arwen's son and when Gollum recovers the One Ring?
+What was first surpassed by Spider-Man 2 and ranks as the seventh largest Wednesday opening?
+What sings when Gandalf lights Del Maestro's staff to save fleeing Gondorian soldiers from Osgiliath as the Nazgûl attack?
+What was estimated that over 100,000 people lined the streets, more than a quarter of the city's population?
+What watched the assembly cut of the film, and had to write seven minutes of music per day to keep up with the schedule?
+What earned $ 377,845,905 in the United States and Canada and $ 742,083,616 in other countries for a worldwide total of $ 1,119,929,521?
+What was held in Wellington's Embassy Theatre, on 1 December 2003, and was attended by the director and many of the stars?
+What do not include income from DVD sales, TV rights, etc?
+What was partially inspired by the premature death from cancer of a young New Zealand filmmaker named Cameron Duncan who had befriended Peter Jackson?
+What was a record-high for December (first surpassed by Spider-Man 2 Am Legend)?
+What is a moving and satisfying conclusion to a great trilogy "?
+What organization went on to make an opening weekend of $ 72.6 million ($ 124.1 million with weekday previews)?
+What was the second film in history to earn over $ 1 billion, making Peter Jackson the second highest grossing film at the time?
+What set single-day records for Christmas Day and New Year's Day (both first surpassed by Meet the Fockers)?
+What named Richard Corliss the best film of the year?
+What reads " Visually breathtaking and emotionally powerful, the Lord of the Rings?
+What sees the full introduction of the Gondor theme, originally heard during Boromir's speeches at the Council of Elrond in the Fellowship of the Ring and at Osgiliath in the Two Towers' Extended Edition?
+What came from the Trilogy Tuesday event, in which the Extended Editions of the first two films were played on 16 December before the first midnight screening?
+What Am Legend set opening-weekend records in the United Kingdom ($ 26.5 million in five days), Germany, Spain, Sweden, Denmark and Switzerland?
+What has a DTS-ES soundtrack?
+What has been estimated that the gross income from non-box office sales and merchandise has been at least equal to the box office for all three films?
+What holds a score of 94 out of 100 on Metacritic, based on 41 reviews, indicating " universal acclaim "?
+What caused optimistic studio executives to forecast that the Lord of the Rings: the Return of the King would surpass?
+What was nominated for the 10th Anniversary Edition of AFI's 100 Years ... 100 Movies?
+What was a 2-disc set with extras on the second disc?
+What was also criticism regarding the Army of the Dead's appearance, rapidly ending the Battle of the Pelennor Fields?
+What was released on VHS and DVD on 25 May 2004?
+What has a runtime of 263 minutes?
+What holds a 95 % " Fresh " rating on the aggregate review site Rotten Tomatoes, based on 261 reviews, with an average score of 8.7?
+What was released in the United States on 6 April 2010?
+What was released in the United States on 28 June 2011?
+What is a bonus disc that contains a new behind-the-scenes documentary?
+What was finally released on 10 December 2004 in the UK and 14 December in the US?
+What forced the magazine to abandon Joel Siegel's policy of only allowing films being older than 12 months to be eligible?
+What can be accessed via a Ring icon on the last page of both Disc 1 and 2's scene indexes?
+What would be in the region of $ 6 billion following an investment of $ 300 million ($ 426 million including marketing costs)?
+When do The film also won four Golden Globes ( including Best Picture for Drama and Best Director ), five BAFTAs, two MTV Movie Awards, two Grammy Awards, nine Saturn Awards, the New York Film Critics Circle award for Best Picture, the Nebula Award for Best Script, and the Hugo Award for Best Dramatic Presentation, Long?
+What comprises a listing of the charter members of the official fan club who had paid for three-year charter membership?
+What was nominated for eleven Academy Awards: best Picture, best Director, best Adapted Screenplay, best Original Score, best Original Song, best Visual Effects, best Art Direction, best Costume Design, best Make-up, best Sound Mixing and best Film Editing?
+What Am Legend set opening-day records in 13 of i Am Legend, including the United Kingdom, Germany, Austria, Belgium, the Netherlands, Spain, Greece, Switzerland, Scandinavia (as well as separately in Sweden, Finland, Norway and Denmark), Mexico, Chile and Puerto Rico?
+What was released on 14 September 2010 with the same special features as the complete trilogy release, except there was no digital copy?
+What earned $ 23.5 million from 19 countries and, during the 5-day weekend as a whole, i Am Legend set an opening-weekend record outside the US and Canada with $ 125.9 million?
+When do A collectors ' box set was also released, which included the Extended Set plus a sculpture of Minas Tirith and a bonus 50 - minute music documentary DVD, Howard Shore : Creating The Lord of the Rings Symphony : A Composer 's Journey Through?
+What to become the highest-grossing motion picture trilogy worldwide of all time with $ 2,917,506,956, beating other notable ones such as the Star Wars trilogies, and surviving from being out-grossed by subsequent trilogies like Pirates of the Caribbean and Harry Potter, despite ticket price inflation?
+What was nearly twice the first-day total of the Lord of the Rings: the Fellowship of the Ring (which earned $ 18.2 million on Spider-Man 2's opening day in 2001), and a significant increase over the Lord of the Rings: the Two Towers as well (which earned $ 26.1 million on Spider-Man 2's debut in 2002)?
+What followed the precedent set by Saturn Awards' predecessors by releasing an Extended Edition (251 minutes) with new editing and added special effects and music, along with four commentaries and six hours of supplementary material, plus 10 minutes of fan-club credits?
+What was also released, which included the Extended Set plus a sculpture of Minas Tirith and a bonus 50-minute music documentary DVD, Howard Shore: Creating the Lord of the Rings Symphony: a Composer's Journey through Middle-earth?
+What won four Golden Globes (including best Picture for Drama and best Director), five BAFTAs, two MTV Movie Awards, two Grammy Awards, nine Saturn Awards, the New York Film Critics Circle award for best Picture, the Nebula Award for best Script, and the Hugo Award for best Dramatic Presentation, Long Form?
+What features two humorous Easter Eggs, one where Dominic Monaghan plays a German interviewer with Elijah Wood via satellite and another where Vince Vaughn and Ben Stiller attempt to convince Jackson to make a sequel, originally shown at the 2004 MTV Movie Awards?

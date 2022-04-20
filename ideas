@@ -1,0 +1,21 @@
+do it recursively
+    if node is s:
+    
+    if node is advp:
+        delete it
+        
+    
+        
+
+
+Counter({('NP', 'VP'): 140, 
+         ('PP', 'NP', 'VP'): 23, 
+         ('NP', 'ADVP', 'VP'): 16,
+         ('SBAR', 'NP', 'VP'): 15, 
+         ('S', 'NP', 'VP'): 9, 
+         ('ADVP', 'NP', 'VP'): 7,
+         ('S', 'VP'): 4,
+         ('NNP',): 3, 
+         ('S',): 3, 
+         ('PP', 'VP'): 2, 
+         ('ADVP', 'VP'): 2, ('PP', 'NP', 'NP', 'VP'): 2, ('NP', 'PP'): 2, ('NP', 'PP', 'VP'): 2, ('SBAR', 'NP', 'ADVP', 'VP'): 1, ('S', 'VP', 'NP'): 1, ('PP', 'NP'): 1, ('PP', 'ADVP', 'VP'): 1, ('NP', 'CC', 'VP'): 1, ('PP', 'CC', 'S', 'NP', 'VP'): 1, ('S', 'SINV'): 1, ('PP',): 1, ('NP', 'ADJP', 'VP'): 1, ('S', 'VP', 'NP', 'PP'): 1, ('SINV',): 1, ('IN', 'NP'): 1, ('S', 'NP'): 1, ('FRAG',): 1, ('NP', 'NP'): 1, ('NP', 'CONJP', 'VP'): 1, ('S', 'CC', 'S'): 1})

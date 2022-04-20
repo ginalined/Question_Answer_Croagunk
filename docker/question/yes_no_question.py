@@ -112,8 +112,9 @@ class YesNoQuestion:
                         self._collect_leaf_nodes(n, leafs, lower=False)
 
     def dep(self):
-        for sent in self.source.sentences:
-            if len(self.questions) >= self.n:
+        for i,sentences in enumerate(self.source):    
+            sent = sentences.sentences[0]
+            if len(self.questions) >= 2 * self.n:
                 return
             question = ""
             np = ""

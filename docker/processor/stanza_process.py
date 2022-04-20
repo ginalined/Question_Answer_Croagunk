@@ -20,7 +20,7 @@ class StanzaProcessor:
         # https://stanfordnlp.github.io/stanza/ner.html
         self.stanza = stanza.Pipeline(
             lang="en",
-            processors="tokenize,ner,pos,lemma,depparse,constituency",
+            processors="tokenize,ner,pos,lemma,mwt, depparse,constituency",
         )
 
     def sentence_segmentation(self):
@@ -41,7 +41,9 @@ class StanzaProcessor:
         #     else "{}\n".format(item)
         #     for item in self.article.split("\n")
         # )
-        self.processed_article = self.stanza(self.article)
+        
+        self.sentences = self.sentence_segmentation()
+        self.processed_article = [self.stanza(sent) for sent in self.sentences]
         return self.processed_article
 
     def print_con_parse(self):
