@@ -22,35 +22,30 @@ class YesNoAnswer:
         return answer
 
     
+    def vector_sentence (self, term_f):
+        word_f = {}
+        vector_question = {}
+        for word in term_f:
+            vector_question[word] = term_f[word] * word_f.get(word, 0)
+        return vector_question;
+
     def rank(self):
-        """
-            TODO: there could be multiple potential answers
-            we should rank them and select the best.
-            Note that # of answers must equal to # of questions.
-        """
-        best_id = 0
-        best_similarity = -1
-        # 1. calculate the frequency of words
+        best_id = 0;
+        best_similar = -1
         lemmas = []
         for token in self.sentence.ents:
             lemmas.append(token.lemma_)
         term_f = {}
         for word in lemmas:
             term_f[word] = term_f.get(word, 0) + 1
-        # 2. vectorize sentence
-        vector_question = {}
-        word_f = {}
-        for word in term_f:
-            vector_question[word] = term_f[word] * word_f.get(word, 0)
-
-        # 3. calculate similarity
+        vector_question = self.vector_sentence(term_f)
         sentences = []
         for sentence_id in range(len(sentences)):
             similarity = 0
             qvalue = 0
             svalue = 0
             for vq in vector_question:
-                if vq in sentences[sentence_id]: # should be fixed later
+                if vq in sentences[sentence_id]:
                     similarity += vector_question * sentences[sentence_id]
                     qvalue += vector_question ** 2
                     svalue += sentences[sentence_id] ** 2
