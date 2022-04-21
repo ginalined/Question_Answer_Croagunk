@@ -51,6 +51,10 @@ class StanzaProcessor:
             except:
                 continue
         return self.processed_article
+    
+    def an_process(self):
+        self.processed_article = self.stanza(self.article)
+        return self.processed_article
 
     def print_con_parse(self):
         for sent in self.processed_article.sentences:
