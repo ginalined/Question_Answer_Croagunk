@@ -12,7 +12,7 @@ class WhoWhenWhereAnswer:
                 num = num + 1
                 answer = ent.text
         if num > 1:
-            return self.question.text
+            return self.sentence.text
         if num == 1:
             return answer
         return "Who: can't find answer"
@@ -25,7 +25,7 @@ class WhoWhenWhereAnswer:
                 num = num + 1
                 answer = ent.text
         if num > 1:
-            return self.question.text
+            return self.sentence.text
         if num == 1:
             return answer
         return "when can't find answer"
@@ -38,7 +38,7 @@ class WhoWhenWhereAnswer:
                 num = num + 1
                 answer = ent.text
         if num > 1:
-            return self.question.text
+            return self.sentence.text
         if num == 1:
             return answer
         return "where can't find answer"

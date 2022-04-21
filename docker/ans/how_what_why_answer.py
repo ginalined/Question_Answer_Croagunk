@@ -12,7 +12,7 @@ class HowWhatWhyAnswer:
                 num = num + 1
                 answer = ent.text
         if num > 1:
-            return self.question.text
+            return self.sentence.text
         if num == 1:
             return answer
         return "what can't find answer"
@@ -26,7 +26,7 @@ class HowWhatWhyAnswer:
                 num = num + 1
                 answer = ent.text
         if num > 1:
-            return self.question.text
+            return self.sentence.text
         if num == 1:
             return answer
         return "how can't find answer"
@@ -39,7 +39,7 @@ class HowWhatWhyAnswer:
                 num = num + 1
                 answer = ent.text
         if num > 1:
-            return self.question.text
+            return self.sentence.text
         if num == 1:
             return answer
         return "why can't find answer"
