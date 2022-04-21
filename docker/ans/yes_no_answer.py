@@ -14,8 +14,7 @@ class YesNoAnswer:
 
     def yesno(self):
         answer = "Yes"
-
-        for ner in self.sentence.ents:
+        for ner in self.sentence.ents[1:]:
             if ner.text not in self.question.words:
                 answer = "No"
 
