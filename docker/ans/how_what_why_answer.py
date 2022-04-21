@@ -7,27 +7,20 @@ class HowWhatWhyAnswer:
     def what(self):
         answers = []
         for ent in self.sentence.ents:
-            if ent.text == "":
-                answers.append(ent.text)
+            if ent.text not in self.question.text:
                 return ent.text
         return "what can't find answer"
 
 
     def how(self):
-        # return "how not implemented"
-        answers = []
         for ent in self.sentence.ents:
-            if ent.text =="":
-                answers.append(ent.text)
+            if ent.text not in self.question.text:
                 return ent.text
         return "how can't find answer"
 
     def why(self):
-        # return "why not implemented"
-        answers = []
         for ent in self.sentence.ents:
-            if ent.text == "":
-                answers.append(ent.text)
+            if ent.text not in self.question.text:
                 return ent.text
         return "why can't find answer"
 
