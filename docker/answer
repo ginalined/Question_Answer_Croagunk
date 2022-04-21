@@ -62,10 +62,8 @@ class Answer:
                 Why
         """
         stanza = StanzaProcessor(raw=sentence).an_process()
-
         processed_sentence = stanza.sentences[0]
         stanza = StanzaProcessor(raw=question).an_process()
-        
         processed_question = stanza.sentences[0]
 
         first_word = processed_question.words[0].text.lower()
