@@ -8,9 +8,10 @@ class YesNoAnswer:
     
     def yesno(self):
         answer = "Yes"
+
         # if NERS unmatching
         for ner in self.sentence.ents:
-            if ner.text not in self.question.words:
+            if ner.text not in [w.text for w in self.question.words]:
                 answer = "No"
         # if parts match with not
         for token in self.question.words:
