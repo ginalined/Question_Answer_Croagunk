@@ -40,7 +40,6 @@ class Answer:
 
         # Sort list of scores and return the top k highest scoring documents
         sorted_list = sorted(enumerate(scores), key=lambda x: x[1], reverse=True)
-        
         return self.article[sorted_list[0][0]]
     
 
@@ -89,6 +88,7 @@ class Answer:
         for question in self.questions:
             
             sentence = self.find_sentence(question, self.article)
+
             answer = self.classify_and_answer(question, sentence)
             self.answers.append(answer)
 
