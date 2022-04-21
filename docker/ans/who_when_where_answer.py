@@ -5,28 +5,46 @@ class WhoWhenWhereAnswer:
         self.answer = ""
     
     def who(self):
-        answers = []
+        num = 0
+        answer = ""
         for ent in self.sentence.ents:
-            if ent.type == "PERSON":
-                answers.append(ent.text) # could be used for ranking
-                return ent.text
+            if ent.text not in self.question.text:
+                num = num + 1
+                answer = ent.text
+        if num > 1:
+            return self.question.text
+        if num == 1:
+            return answer
         return "Who: can't find answer"
     
     def when(self):
-        answers = []
+        num = 0
+        answer = ""
         for ent in self.sentence.ents:
-            if ent.type == "DATE":
-                answers.append(ent.text) # could be used for ranking
-                return ent.text
+            if ent.text not in self.question.text:
+                num = num + 1
+                answer = ent.text
+        if num > 1:
+            return self.question.text
+        if num == 1:
+            return answer
         return "when can't find answer"
 
     def where(self):
-        answers = []
+        num = 0
+        answer = ""
         for ent in self.sentence.ents:
-            if ent.type == "GPE":
-                answers.append(ent.text) # could be used for ranking
-                return ent.text
+            if ent.text not in self.question.text:
+                num = num + 1
+                answer = ent.text
+        if num > 1:
+            return self.question.text
+        if num == 1:
+            return answer
         return "where can't find answer"
-    
+
+
+
+
 
 

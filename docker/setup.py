@@ -4,7 +4,7 @@ import spacy
 from transformers import AutoModelForMaskedLM, AutoTokenizer
 from transformers import GPT2LMHeadModel, GPT2TokenizerFast
 
-stanza.download('en')
+
 # stanza.install_corenlp()
 spacy.cli.download("en")
 nltk.download('wordnet', quiet=True)
