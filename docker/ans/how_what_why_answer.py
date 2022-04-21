@@ -5,27 +5,29 @@ class HowWhatWhyAnswer:
         self.answer = ""
 
     def what(self):
-        # return "what not implemented"
-        # for token in self.question:
-        # print(token.pos)
-        # for ner in self.ners:
-        # print(ner.text)
+        answers = []
         for ent in self.sentence.ents:
-            if ent.text not in self.question.text:
+            if ent.text == "":
+                answers.append(ent.text)
                 return ent.text
         return "what can't find answer"
 
+
     def how(self):
         # return "how not implemented"
+        answers = []
         for ent in self.sentence.ents:
-            if ent.text not in self.question.text:
+            if ent.text =="":
+                answers.append(ent.text)
                 return ent.text
         return "how can't find answer"
 
     def why(self):
         # return "why not implemented"
+        answers = []
         for ent in self.sentence.ents:
-            if ent.text not in self.question.text:
+            if ent.text == "":
+                answers.append(ent.text)
                 return ent.text
         return "why can't find answer"
 

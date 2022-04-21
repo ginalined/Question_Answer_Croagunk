@@ -47,9 +47,6 @@ class Answer:
     def classify_and_answer(self, question, sentence):
         """
             TODO: classify question into different types using leading word
-            then process the sentence using libraries
-                Binary: Is/are/was/were/did/do/does/has/had/have...
-                    - 我们可以先用随机来回答binary问题，后面再进一步改动
             --------------
                 Who/Whom    NER Person
                 When        NER Date
