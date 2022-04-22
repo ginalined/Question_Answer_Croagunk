@@ -1,11 +1,3 @@
-import random
-
-import nltk
-import spacy
-import stanza
-
-
-
 class YesNoAnswer:
     def __init__(self, sentence, question):
         self.sentence = sentence
